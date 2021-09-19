@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f78e492e94c471ba32f401431271a57, type: 3}
+  m_Name: Runes Elements
+  m_EditorClassIdentifier: 
+  _runeEhwaz: {fileID: 4695825615591757689, guid: 408d9169303263647baad3ce02427dca,
+    type: 3}
+  _runeFehu: {fileID: 4228907411092120784, guid: 3e37ccdee1f6fed4d870cb5291ae73f6,
+    type: 3}

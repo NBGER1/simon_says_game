@@ -1,3 +1,5 @@
+using Gameplay.Core;
+
 namespace Infrastructure.Services
 {
     public static class GameplayServices
@@ -6,7 +8,7 @@ namespace Infrastructure.Services
 
         public static void Initialize()
         {
-            
+            GameCore.Instance.Initialize();
         }
 
         #endregion
