@@ -8,19 +8,29 @@ namespace Gameplay.Rivals
     {
         #region Editor
 
-        [SerializeField] private RawImage _image;
+        [SerializeField] private Texture2D _image;
         [SerializeField] private string _name;
-        [SerializeField] private int[] _sequences;
-        [SerializeField] private float _damage;
+        [SerializeField] [Range(0, 5)] private int _totalGameSequences;
+        [SerializeField] private int _minGameSequenceLength;
+        [SerializeField] [Range(2, 4)] private int _maxGameSequenceLength;
+        [SerializeField] [Range(0f, 100f)] private float _damage;
+        [SerializeField] private AudioClip _introAudio;
+        [SerializeField] private AudioClip _attackAudio;
+        [SerializeField] private AudioClip _defeatAudio;
 
         #endregion
 
         #region Properties
 
-        public RawImage Image => _image;
+        public Texture2D Image => _image;
         public string Name => _name;
-        public int[] Sequences => _sequences;
+        public int GameSequences => _totalGameSequences;
         public float Damage => _damage;
+        public AudioClip IntroAudio => _introAudio;
+        public AudioClip AttackAudio => _attackAudio;
+        public AudioClip DefeatAudio => _defeatAudio;
+        public int MinGameSequenceLength => _minGameSequenceLength;
+        public int MaxGameSequenceLength => _maxGameSequenceLength;
 
         #endregion
     }

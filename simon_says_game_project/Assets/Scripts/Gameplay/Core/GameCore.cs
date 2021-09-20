@@ -21,6 +21,8 @@ namespace Gameplay.Core
         #region Fields
 
         private Queue<int> _lastGameSequence = new Queue<int>();
+        private int _maxRuneIndex;
+        private int _minRuneIndex;
 
         #endregion
 
@@ -33,7 +35,9 @@ namespace Gameplay.Core
             UIManager.Instance.Initialize();
             _playerModel.AddHealth(_playerModel.MaxHealth);
 
-            GenerateNewGameSequence();
+            var rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.Stage);
+            UIManager.Instance.InitializeRival(rivalParams);
+            //GenerateNewGameSequence();
         }
 
         private void GenerateNewGameSequence()
@@ -107,11 +111,18 @@ namespace Gameplay.Core
             }
         }
 
-        #endregion
-
         protected override GameCore GetInstance()
         {
             return this;
         }
+
+        #endregion
+
+        #region Properties
+
+        public int MaxRuneIndex => _maxRuneIndex;
+        public int MinRuneIndex => _minRuneIndex;
+
+        #endregion
     }
 }
