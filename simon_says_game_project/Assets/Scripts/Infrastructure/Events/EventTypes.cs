@@ -9,6 +9,10 @@ namespace Infrastructure.Events
         OnRivalTurn,
         OnPlayerTurn,
         OnRuneSelection,
-        OnRuneSelectionEnd
+        OnRuneSelectionEnd,
+        OnPlayerSequenceSuccess,
+        OnPlayerSequenceFailure,
+        OnRivalDeath,
+        OnPlayerDeath,
     }
 }

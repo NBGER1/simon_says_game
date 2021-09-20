@@ -10,6 +10,8 @@ namespace Gameplay.Rivals
 
         [SerializeField] private Texture2D _image;
         [SerializeField] private string _name;
+        [SerializeField] [Range(1f, 1000f)] private float _health;
+        [SerializeField] [Range(1f, 1000f)] private float _selfDamage;
         [SerializeField] [Range(0, 5)] private int _totalGameSequences;
         [SerializeField] private int _minGameSequenceLength;
         [SerializeField] [Range(2, 4)] private int _maxGameSequenceLength;
@@ -24,6 +26,8 @@ namespace Gameplay.Rivals
 
         public Texture2D Image => _image;
         public string Name => _name;
+        public float Health => _health;
+        public float SelfDamage => _selfDamage;
         public float Damage => _damage;
         public int GameSequences => _totalGameSequences;
         public int MinGameSequenceLength => _minGameSequenceLength;

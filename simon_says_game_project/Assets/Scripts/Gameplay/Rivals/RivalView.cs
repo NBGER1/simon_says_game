@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gameplay.Core;
+using Gameplay.Events;
 using Infrastructure.Events;
 using Infrastructure.Services;
 using TMPro;
@@ -22,6 +23,7 @@ namespace Gameplay.Rivals
         #region Fields
 
         private RivalModel _rivalModel;
+        private float _health;
 
         #endregion
 
@@ -32,9 +34,23 @@ namespace Gameplay.Rivals
             _rivalModel = rivalModel;
             _image.texture = _rivalModel.Image;
             _name.text = _rivalModel.Name;
+            _health = _rivalModel.Health;
+
+            var eParams = new OnHealthChange(_health);
+            GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
+
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeSelfDamage);
             PlayIntroAudio();
+        }
+
+
+        private void TakeSelfDamage(EventParams obj)
+        {
+            _health = Mathf.Max(_health - _rivalModel.SelfDamage, 0);
+            var eParams = new OnHealthChange(_health);
+            GameplayServices.EventBus.Publish(EventTypes.OnRivalTakeDamage, eParams);
         }
 
         private void OnRivalTurn(EventParams obj)
@@ -50,16 +66,26 @@ namespace Gameplay.Rivals
 
         public Queue<int> GetNewGameSequence()
         {
-            var max = GameCore.Instance.GameModel.RunesInScene;
-            var min = 0;
-            var total = Random.Range(_rivalModel.MinGameSequenceLength, _rivalModel.MaxGameSequenceLength);
-            Queue<int> gameSequence = new Queue<int>();
-            for (var i = 0; i < total; i++)
+            if (IsRivalAlive())
             {
-                gameSequence.Enqueue(Random.Range(min, max));
+                var max = GameCore.Instance.GameModel.RunesInScene;
+                var min = 0;
+                var total = Random.Range(_rivalModel.MinGameSequenceLength, _rivalModel.MaxGameSequenceLength);
+                Queue<int> gameSequence = new Queue<int>();
+                for (var i = 0; i < total; i++)
+                {
+                    gameSequence.Enqueue(Random.Range(min, max));
+                }
+
+                return gameSequence;
             }
 
-            return gameSequence;
+            return null;
+        }
+
+        private bool IsRivalAlive()
+        {
+            return _health > 0;
         }
 
         public void PlayIntroAudio()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Events;
 using Gameplay.Player;
 using Gameplay.Rivals;
 using Gameplay.RuneObject;
@@ -78,8 +79,14 @@ namespace Gameplay.Core
 
         private void StartGameSequence()
         {
-            StartRivalTurn();
             _lastGameSequence = _rivalView.GetNewGameSequence();
+            if (_lastGameSequence == null)
+            {
+                OnRivalDeath();
+                return;
+            }
+
+            StartRivalTurn();
             Queue<int> copyQueue = new Queue<int>(_lastGameSequence);
             var totalCount = _lastGameSequence.Count;
             for (var i = 0; i < totalCount; i++)
@@ -101,6 +108,22 @@ namespace Gameplay.Core
             GameplayServices.CoroutineService
                 .WaitFor(totalCount)
                 .OnEnd(StartPlayerTurn);
+        }
+
+        private void OnRivalDeath()
+        {
+            Debug.Log("RIVAL DEFEATED!");
+            GameplayServices.CoroutineService
+                .WaitFor(2)
+                .OnEnd(GetNextRival);
+        }
+
+        private void GetNextRival()
+        {
+            _playerModel.AddScore(10);
+            var newStage = _playerModel.Stage + 1;
+            _playerModel.SetStage(newStage);
+            InitializeRival();
         }
 
         private void StartPlayerTurn()
@@ -136,7 +159,7 @@ namespace Gameplay.Core
             }
             else
             {
-                OnPlayerSuccess(index);
+                OnPlayerSuccess();
             }
         }
 
@@ -154,12 +177,14 @@ namespace Gameplay.Core
                 .OnEnd(() => { endCallback?.Invoke(); });
         }
 
-        private void OnPlayerSuccess(int index)
+        private void OnPlayerSuccess()
         {
             var delay = 3;
             if (_lastGameSequence.Count == 0)
             {
                 Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
+                var eventParams = EventParams.Empty;
+                GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceFailure, eventParams);
                 DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
             }
             else

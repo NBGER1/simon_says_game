@@ -23,8 +23,8 @@ namespace Gameplay.HealthBar
 
         protected override void SetSliderValue(EventParams eventParams)
         {
-            var eParams = eventParams as OnHealthBarChange;
-            _slider.value = Mathf.Max(eParams.Health, _slider.maxValue);
+            var eParams = eventParams as OnHealthChange;
+            _slider.value = eParams.Health;
         }
 
 

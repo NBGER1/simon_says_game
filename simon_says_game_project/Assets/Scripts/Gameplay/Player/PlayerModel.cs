@@ -26,14 +26,14 @@ namespace Gameplay.Player
         public void AddHealth(float value)
         {
             _health = Mathf.Min(_health + value, _maxHealth);
-            var eParams = new OnHealthBarChange(_health);
+            var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerAddHealth, eParams);
         }
 
         public void RemoveHealth(float value)
         {
             _health = Mathf.Max(_health - value, 0);
-            var eParams = new OnHealthBarChange(_health);
+            var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
         }
 

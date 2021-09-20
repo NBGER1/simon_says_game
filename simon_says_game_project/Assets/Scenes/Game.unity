@@ -971,7 +971,17 @@ PrefabInstance:
     - target: {fileID: 2318441974689118472, guid: fbf59f7a4b437a641bf42d36fe20f3a2,
         type: 3}
       propertyPath: m_Value
-      value: 0.646
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318441974689118472, guid: fbf59f7a4b437a641bf42d36fe20f3a2,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318441974689118472, guid: fbf59f7a4b437a641bf42d36fe20f3a2,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2318441974689118472, guid: fbf59f7a4b437a641bf42d36fe20f3a2,
         type: 3}

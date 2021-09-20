@@ -2,7 +2,7 @@ using Infrastructure.Events;
 
 namespace Gameplay.Events
 {
-    public class OnHealthBarChange : EventParams
+    public class OnHealthChange : EventParams
     {
         #region Fields
 
@@ -12,7 +12,7 @@ namespace Gameplay.Events
 
         #region Constructor
 
-        public OnHealthBarChange(float health)
+        public OnHealthChange(float health)
         {
             _health = health;
         }
