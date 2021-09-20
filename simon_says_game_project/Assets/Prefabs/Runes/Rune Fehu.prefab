@@ -196,9 +196,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 4228907410624045209}
-  _params: {fileID: 11400000, guid: 6e8f44b733f1b514aa36507e7cd839ce, type: 2}
   _highlight: {fileID: 8794969711664973057}
   _audioSource: {fileID: 1368452100327829920}
+  _runeParams: {fileID: 11400000, guid: 6e8f44b733f1b514aa36507e7cd839ce, type: 2}
 --- !u!114 &689334684867259458
 MonoBehaviour:
   m_ObjectHideFlags: 0

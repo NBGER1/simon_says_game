@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Gameplay.Player
 {
@@ -6,7 +8,25 @@ namespace Gameplay.Player
     {
         #region Editor
 
-        [SerializeField] private Texture2D _image;
+        [SerializeField] private RawImage _image;
+        [SerializeField] private TextMeshProUGUI _name;
+
+        #endregion
+
+        #region Fields
+
+        private PlayerModel _playerModel;
+
+        #endregion
+
+        #region Methods
+
+        public void Initialize(PlayerModel playerModel)
+        {
+            _playerModel = playerModel;
+            _image.texture = playerModel.Image;
+            _name.text = _playerModel.Name;
+        }
 
         #endregion
     }

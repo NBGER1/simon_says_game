@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 namespace Gameplay.Rivals
 {
-    [CreateAssetMenu(menuName = "Gameplay Params/Rival", fileName = "RivalParams")]
-    public class RivalParams : ScriptableObject
+    [CreateAssetMenu(menuName = "Gameplay Models/Rival", fileName = "RivalModel")]
+    public class RivalModel : ScriptableObject
     {
         #region Editor
 
@@ -24,13 +24,13 @@ namespace Gameplay.Rivals
 
         public Texture2D Image => _image;
         public string Name => _name;
-        public int GameSequences => _totalGameSequences;
         public float Damage => _damage;
+        public int GameSequences => _totalGameSequences;
+        public int MinGameSequenceLength => _minGameSequenceLength;
+        public int MaxGameSequenceLength => _maxGameSequenceLength;
         public AudioClip IntroAudio => _introAudio;
         public AudioClip AttackAudio => _attackAudio;
         public AudioClip DefeatAudio => _defeatAudio;
-        public int MinGameSequenceLength => _minGameSequenceLength;
-        public int MaxGameSequenceLength => _maxGameSequenceLength;
 
         #endregion
     }

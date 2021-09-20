@@ -8,7 +8,7 @@ namespace Infrastructure.Managers
     {
         #region Editor
 
-        [SerializeField] private RivalParams[] _rivals;
+        [SerializeField] private RivalModel[] _rivals;
 
         #endregion
 
@@ -20,7 +20,7 @@ namespace Infrastructure.Managers
             return this;
         }
 
-        public RivalParams GetRivalByIndex(int index)
+        public RivalModel GetRivalByIndex(int index)
         {
             if (index < _rivals.Length)
             {

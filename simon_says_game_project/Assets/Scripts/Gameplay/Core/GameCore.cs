@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Player;
+using Gameplay.Rivals;
+using Gameplay.Rune;
+using Gameplay.RuneObject;
 using Infrastructure.Abstracts;
 using Infrastructure.Managers;
 using Infrastructure.Services;
@@ -12,6 +15,8 @@ namespace Gameplay.Core
     {
         #region Editor
 
+        [SerializeField] private RivalView _rivalView;
+        [SerializeField] private PlayerView _playerView;
         [SerializeField] private RunesElements _runesElements;
         [SerializeField] private GameObject _runesLayout;
         [SerializeField] private PlayerModel _playerModel;
@@ -20,6 +25,7 @@ namespace Gameplay.Core
 
         #region Fields
 
+        private RivalModel _rivalParams;
         private Queue<int> _lastGameSequence = new Queue<int>();
         private int _maxRuneIndex;
         private int _minRuneIndex;
@@ -34,22 +40,14 @@ namespace Gameplay.Core
             Instantiate(_runesElements.Ehwaz, _runesLayout.transform);
             UIManager.Instance.Initialize();
             _playerModel.AddHealth(_playerModel.MaxHealth);
-
-            var rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.Stage);
-            UIManager.Instance.InitializeRival(rivalParams);
-            //GenerateNewGameSequence();
+            _playerView.Initialize(_playerModel);
+            _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.Stage);
+            _rivalView.Initialize(_rivalParams);
+            //StartNewRound();
         }
 
-        private void GenerateNewGameSequence()
+        private void StartNewRound()
         {
-            var max = 2;
-            var min = 0;
-            var total = 3;
-            for (var i = 0; i < total; i++)
-            {
-                _lastGameSequence.Enqueue(Random.Range(min, max));
-            }
-
             Debug.Log($"Game Sequence is {_lastGameSequence}");
             StartGameSequence();
         }
@@ -72,13 +70,13 @@ namespace Gameplay.Core
 
         IEnumerator DeselectRune(int index)
         {
-            _runesLayout.transform.GetChild(index).GetComponent<Rune.Base.Rune>().DeselectRune();
+            _runesLayout.transform.GetChild(index).GetComponent<RuneView>().DeselectRune();
             yield return null;
         }
 
         IEnumerator HighlightRunes(int index)
         {
-            _runesLayout.transform.GetChild(index).GetComponent<Rune.Base.Rune>().HighlightRune();
+            _runesLayout.transform.GetChild(index).GetComponent<RuneView>().HighlightRune();
             yield return null;
         }
 
@@ -98,7 +96,6 @@ namespace Gameplay.Core
         private void OnPlayerMiss(int correctIndex, int badIndex)
         {
             Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
-            GenerateNewGameSequence();
         }
 
         private void OnPlayerSuccess(int index)
@@ -107,7 +104,6 @@ namespace Gameplay.Core
             if (_lastGameSequence.Count == 0)
             {
                 Debug.Log("You hit your rival!");
-                GenerateNewGameSequence();
             }
         }
 

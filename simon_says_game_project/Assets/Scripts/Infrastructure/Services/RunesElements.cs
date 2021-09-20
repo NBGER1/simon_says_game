@@ -1,4 +1,4 @@
-using Gameplay.Rune.Base;
+using Gameplay.RuneObject;
 using UnityEngine;
 
 namespace Infrastructure.Services
@@ -8,15 +8,15 @@ namespace Infrastructure.Services
     {
         #region Editor
 
-        [SerializeField] private Rune _runeEhwaz;
-        [SerializeField] private Rune _runeFehu;
+        [SerializeField] private RuneView _runeEhwaz;
+        [SerializeField] private RuneView _runeFehu;
 
         #endregion
 
         #region Properties
 
-        public Rune Ehwaz => _runeEhwaz;
-        public Rune Fehu => _runeFehu;
+        public RuneView Ehwaz => _runeEhwaz;
+        public RuneView Fehu => _runeFehu;
 
         #endregion
     }

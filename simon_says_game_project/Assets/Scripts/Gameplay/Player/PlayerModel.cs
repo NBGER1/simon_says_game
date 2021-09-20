@@ -14,6 +14,7 @@ namespace Gameplay.Player
         [SerializeField] [Range(1f, 100f)] private float _maxHealth;
         [SerializeField] [Range(0, 1000)] private int _maxScore;
         [SerializeField] private Texture2D _image;
+        [SerializeField] private string _name;
         [SerializeField] private float _health;
         [SerializeField] private int _stage;
         [SerializeField] private int _score;
@@ -60,6 +61,7 @@ namespace Gameplay.Player
         public float MaxHealth => _maxHealth;
         public int Stage => _stage;
         public int Score => _score;
+        public string Name => _name;
 
         #endregion
     }

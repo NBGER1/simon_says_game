@@ -1,20 +1,20 @@
 using System;
-using System.Security.Cryptography;
 using Gameplay.Core;
 using Gameplay.Rune;
 using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
-namespace Gameplay.RuneObject.Factories
+namespace Gameplay.RuneObject
 {
-    public class RuneObject : Rune.Base.Rune
+    public class RuneView : MonoBehaviour
     {
         #region Editor
 
-        [SerializeField] private RuneParams _params;
+        [SerializeField] private RawImage _image;
         [SerializeField] private GameObject _highlight;
         [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private RuneParams _runeParams;
 
         #endregion
 
@@ -26,44 +26,44 @@ namespace Gameplay.RuneObject.Factories
 
         #region Methods
 
-        private void Start()
+        public void Start()
         {
             Initialize();
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
-            _image.texture = _params.Image;
-            _gameIndex = _params.GameIndex;
-            _audioSource.clip = _params.Audio;
+            _image.texture = _runeParams.Image;
+            _gameIndex = _runeParams.GameIndex;
+            _audioSource.clip = _runeParams.Audio;
             DeselectRune();
         }
 
 
-        public override void SelectRune()
+        public void SelectRune()
         {
             GameplayServices.CoroutineService
                 .WaitFor(1)
                 .OnStart(() =>
                 {
                     HighlightRune();
-                    GameCore.Instance.ComparePlayerSelection(_params.GameIndex);
+                    GameCore.Instance.ComparePlayerSelection(_runeParams.GameIndex);
                 })
                 .OnEnd(DeselectRune);
         }
 
-        public override void HighlightRune()
+        public void HighlightRune()
         {
             _highlight.SetActive(true);
             PlayAudio();
         }
 
-        public override void DeselectRune()
+        public void DeselectRune()
         {
             _highlight.SetActive(false);
         }
 
-        public override void PlayAudio()
+        public void PlayAudio()
         {
             _audioSource.Play();
         }

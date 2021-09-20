@@ -19140,9 +19140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 4695825616202371888}
-  _params: {fileID: 11400000, guid: 892073a385969144b9ccc86d5b35498d, type: 2}
   _highlight: {fileID: 2092411590558128070}
   _audioSource: {fileID: -302664553710241938}
+  _runeParams: {fileID: 11400000, guid: 892073a385969144b9ccc86d5b35498d, type: 2}
 --- !u!114 &2654411624297061758
 MonoBehaviour:
   m_ObjectHideFlags: 0
