@@ -730,6 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rivals:
   - {fileID: 11400000, guid: 2b9cb9f639a420e438dbff238bde08e2, type: 2}
+  - {fileID: 11400000, guid: 6bd834b685e77304c8e83a22fd0cb099, type: 2}
 --- !u!4 &1869795906
 Transform:
   m_ObjectHideFlags: 0

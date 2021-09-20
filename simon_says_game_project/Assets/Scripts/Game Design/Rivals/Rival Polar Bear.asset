@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: RivalModel
+  m_Name: Rival Polar Bear
   m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _name: 
-  _health: 0
-  _selfDamage: 0
-  _totalGameSequences: 0
-  _minGameSequenceLength: 0
-  _maxGameSequenceLength: 0
-  _damage: 0
-  _introAudio: {fileID: 0}
+  _image: {fileID: 2800000, guid: b17c0dbe0ff4e58469f625979ccdb96d, type: 3}
+  _name: Savage Polar Bear
+  _health: 100
+  _selfDamage: 20
+  _minGameSequenceLength: 3
+  _maxGameSequenceLength: 4
+  _damage: 34
+  _introAudio: {fileID: 8300000, guid: f13780a182fa1ab4d927a0dbe3db9f9d, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

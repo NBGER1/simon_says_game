@@ -44,7 +44,7 @@ namespace Gameplay.Core
 
             GameplayServices.CoroutineService
                 .WaitFor(1.5f)
-                .OnEnd(() => { StartGameSequence(); });
+                .OnEnd(StartGameSequence);
         }
 
         private void InitializeRival()
@@ -59,7 +59,7 @@ namespace Gameplay.Core
             _playerView.Initialize(_playerModel);
         }
 
-        IEnumerator InstantiateRune(RuneView rune)
+        private IEnumerator InstantiateRune(RuneView rune)
         {
             Instantiate(rune, _runesLayout.transform);
             yield return null;
@@ -80,9 +80,15 @@ namespace Gameplay.Core
         private void StartGameSequence()
         {
             _lastGameSequence = _rivalView.GetNewGameSequence();
-            if (_lastGameSequence == null)
+            if (!_rivalView.IsAlive())
             {
                 OnRivalDeath();
+                return;
+            }
+
+            if (!_playerView.IsAlive())
+            {
+                OnPlayerDeath();
                 return;
             }
 
@@ -116,6 +122,17 @@ namespace Gameplay.Core
             GameplayServices.CoroutineService
                 .WaitFor(2)
                 .OnEnd(GetNextRival);
+        }
+
+        private void OnPlayerDeath()
+        {
+            Debug.Log("PLAYER DEFEATED!");
+            InitializeRival();
+            InitializePlayer();
+
+            GameplayServices.CoroutineService
+                .WaitFor(1.5f)
+                .OnEnd(() => { StartGameSequence(); });
         }
 
         private void GetNextRival()
@@ -166,6 +183,8 @@ namespace Gameplay.Core
         private void OnPlayerMiss(int correctIndex, int badIndex)
         {
             Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
+            var eventParams = new OnDamageTaken(_rivalParams.Damage);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceFailure, eventParams);
             DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
         }
 
@@ -184,7 +203,7 @@ namespace Gameplay.Core
             {
                 Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
                 var eventParams = EventParams.Empty;
-                GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceFailure, eventParams);
+                GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceSuccess, eventParams);
                 DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
             }
             else

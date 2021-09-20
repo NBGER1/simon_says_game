@@ -41,7 +41,7 @@ namespace Gameplay.Rivals
 
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeSelfDamage);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
             PlayIntroAudio();
         }
 
@@ -66,7 +66,7 @@ namespace Gameplay.Rivals
 
         public Queue<int> GetNewGameSequence()
         {
-            if (IsRivalAlive())
+            if (IsAlive())
             {
                 var max = GameCore.Instance.GameModel.RunesInScene;
                 var min = 0;
@@ -83,7 +83,7 @@ namespace Gameplay.Rivals
             return null;
         }
 
-        private bool IsRivalAlive()
+        public bool IsAlive()
         {
             return _health > 0;
         }

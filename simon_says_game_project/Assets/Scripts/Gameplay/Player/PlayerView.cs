@@ -1,3 +1,4 @@
+using Gameplay.Events;
 using Infrastructure.Events;
 using Infrastructure.Services;
 using TMPro;
@@ -31,11 +32,24 @@ namespace Gameplay.Player
             _name.text = _playerModel.Name;
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
+        }
+
+
+        private void TakeDamage(EventParams obj)
+        {
+            var eParams = obj as OnDamageTaken;
+            _playerModel.RemoveHealth(eParams.Damage);
         }
 
         private void OnRivalTurn(EventParams obj)
         {
             _turnIndicator.SetActive(false);
+        }
+
+        public bool IsAlive()
+        {
+            return _playerModel.Health > 0;
         }
 
         private void OnPlayerTurn(EventParams obj)
