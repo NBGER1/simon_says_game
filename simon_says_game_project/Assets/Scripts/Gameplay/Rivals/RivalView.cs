@@ -34,7 +34,7 @@ namespace Gameplay.Rivals
             _name.text = _rivalModel.Name;
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
-           
+            PlayIntroAudio();
         }
 
         private void OnRivalTurn(EventParams obj)

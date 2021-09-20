@@ -23,6 +23,7 @@ namespace Gameplay.RuneObject
         #region Fields
 
         private int _gameIndex;
+        private float _selectionDelay;
 
         #endregion
 
@@ -40,8 +41,22 @@ namespace Gameplay.RuneObject
             _audioSource.clip = _runeParams.Audio;
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRuneSelection, OnRuneSelection);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRuneSelectionEnd, OnRuneSelectionEnd);
+
+            _selectionDelay = GameCore.Instance.GameModel.RuneSelectionDelay;
 
             DeselectRune();
+        }
+
+        private void OnRuneSelectionEnd(EventParams obj)
+        {
+            _button.interactable = true;
+        }
+
+        private void OnRuneSelection(EventParams obj)
+        {
+            _button.interactable = false;
         }
 
         private void OnRivalTurn(EventParams eventParams)
@@ -57,9 +72,11 @@ namespace Gameplay.RuneObject
         public void SelectRune()
         {
             GameplayServices.CoroutineService
-                .WaitFor(1)
+                .WaitFor(_selectionDelay)
                 .OnStart(() =>
                 {
+                    var eventParams = EventParams.Empty;
+                    GameplayServices.EventBus.Publish(EventTypes.OnRuneSelection, eventParams);
                     HighlightRune();
                     GameCore.Instance.ComparePlayerSelection(_runeParams.GameIndex);
                 })

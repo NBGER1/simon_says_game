@@ -1,15 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Player;
 using Gameplay.Rivals;
-using Gameplay.Rune;
 using Gameplay.RuneObject;
 using Infrastructure.Abstracts;
 using Infrastructure.Events;
 using Infrastructure.Managers;
 using Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Gameplay.Core
 {
@@ -130,7 +129,6 @@ namespace Gameplay.Core
 
         public void ComparePlayerSelection(int index)
         {
-            StartRivalTurn();
             var nextIndex = _lastGameSequence.Dequeue();
             if (index != nextIndex)
             {
@@ -145,24 +143,30 @@ namespace Gameplay.Core
         private void OnPlayerMiss(int correctIndex, int badIndex)
         {
             Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
-            StartGameSequence();
+            DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
+        }
+
+        private void DelayedCallbacks(float delay, Action startCallback, Action endCallback)
+        {
+            GameplayServices.CoroutineService
+                .WaitFor(delay)
+                .OnStart(() => { startCallback?.Invoke(); })
+                .OnEnd(() => { endCallback?.Invoke(); });
         }
 
         private void OnPlayerSuccess(int index)
         {
-            Debug.Log($"{index} is Correct!");
             var delay = 3;
             if (_lastGameSequence.Count == 0)
             {
                 Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
-                GameplayServices.CoroutineService
-                    .WaitFor(delay)
-                    .OnStart(StartRivalTurn)
-                    .OnEnd(StartGameSequence);
+                DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
             }
             else
             {
-                StartPlayerTurn();
+                var eventParams = EventParams.Empty;
+                DelayedCallbacks(_gameModel.RuneSelectionDelay, null,
+                    () => { GameplayServices.EventBus.Publish(EventTypes.OnRuneSelectionEnd, eventParams); });
             }
         }
 

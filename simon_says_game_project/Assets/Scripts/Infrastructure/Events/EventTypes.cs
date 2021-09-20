@@ -8,5 +8,7 @@ namespace Infrastructure.Events
         OnRivalAddHealth,
         OnRivalTurn,
         OnPlayerTurn,
+        OnRuneSelection,
+        OnRuneSelectionEnd
     }
 }
