@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Reflection;
+using Gameplay.Player;
 using Infrastructure.Abstracts;
+using Infrastructure.Managers;
 using Infrastructure.Services;
 using UnityEngine;
 
@@ -12,6 +14,7 @@ namespace Gameplay.Core
 
         [SerializeField] private RunesElements _runesElements;
         [SerializeField] private GameObject _runesLayout;
+        [SerializeField] private PlayerModel _playerModel;
 
         #endregion
 
@@ -21,6 +24,8 @@ namespace Gameplay.Core
         {
             Instantiate(_runesElements.Ehwaz, _runesLayout.transform);
             Instantiate(_runesElements.Fehu, _runesLayout.transform);
+            UIManager.Instance.Initialize();
+            _playerModel.AddHealth(_playerModel.MaxHealth);
         }
 
         #endregion
