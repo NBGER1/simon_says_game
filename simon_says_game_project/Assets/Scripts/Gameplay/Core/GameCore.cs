@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using Gameplay.Player;
 using Infrastructure.Abstracts;
 using Infrastructure.Managers;
@@ -18,14 +18,85 @@ namespace Gameplay.Core
 
         #endregion
 
+        #region Fields
+
+        private Queue<int> _lastGameSequence = new Queue<int>();
+
+        #endregion
+
         #region Methods
 
         public void Initialize()
         {
-            Instantiate(_runesElements.Ehwaz, _runesLayout.transform);
             Instantiate(_runesElements.Fehu, _runesLayout.transform);
+            Instantiate(_runesElements.Ehwaz, _runesLayout.transform);
             UIManager.Instance.Initialize();
             _playerModel.AddHealth(_playerModel.MaxHealth);
+
+            GenerateNewGameSequence();
+        }
+
+        private void GenerateNewGameSequence()
+        {
+            var max = 2;
+            var min = 0;
+            var total = 3;
+            for (var i = 0; i < total; i++)
+            {
+                _lastGameSequence.Enqueue(Random.Range(min, max));
+            }
+
+            Debug.Log($"Game Sequence is {_lastGameSequence}");
+            StartGameSequence();
+        }
+
+        private void StartGameSequence()
+        {
+            Queue<int> copyQueue = new Queue<int>(_lastGameSequence);
+            for (var i = 0; i < _lastGameSequence.Count; i++)
+            {
+                var index = copyQueue.Dequeue();
+                GameplayServices.CoroutineService
+                    .WaitFor(i)
+                    .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(HighlightRunes(index)); });
+                GameplayServices.CoroutineService
+                    .WaitFor(i*2+1)
+                    .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); });
+            }
+        }
+
+        IEnumerator DeselectRune(int index)
+        {
+            _runesLayout.transform.GetChild(index).GetComponent<Rune.Base.Rune>().DeselectRune();
+            yield return null;
+        }
+
+        IEnumerator HighlightRunes(int index)
+        {
+            _runesLayout.transform.GetChild(index).GetComponent<Rune.Base.Rune>().HighlightRune();
+            yield return null;
+        }
+
+        public void ComparePlayerSelection(int index)
+        {
+            var nextIndex = _lastGameSequence.Dequeue();
+            if (index != nextIndex)
+            {
+                OnPlayerMiss(nextIndex);
+            }
+            else
+            {
+                OnPlayerSuccess();
+            }
+        }
+
+        private void OnPlayerMiss(int index)
+        {
+            Debug.Log($"You missed! The correct index was {index}");
+        }
+
+        private void OnPlayerSuccess()
+        {
         }
 
         #endregion

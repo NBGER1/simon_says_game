@@ -8,15 +8,17 @@ namespace Gameplay.Rune
     {
         #region Editor
 
-        [SerializeField] private RawImage _image;
+        [SerializeField] private Texture2D _image;
         [SerializeField] private string _name;
+        [SerializeField] private int _gameIndex;
 
         #endregion
 
         #region Properties
 
-        public RawImage Image => _image;
+        public Texture2D Image => _image;
         public string Name => _name;
+        public int GameIndex => _gameIndex;
 
         #endregion
     }

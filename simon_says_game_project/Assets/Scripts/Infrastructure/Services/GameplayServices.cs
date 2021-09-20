@@ -1,5 +1,6 @@
 using Gameplay.Core;
-using Gameplay.Player;
+using Infrastructure.Services.Coroutines;
+using UnityEngine;
 
 namespace Infrastructure.Services
 {
@@ -8,6 +9,7 @@ namespace Infrastructure.Services
         #region Fields
 
         private static EventBus _eventBus;
+        private static ICoroutineService _coroutineService;
 
         #endregion
 
@@ -16,6 +18,10 @@ namespace Infrastructure.Services
         public static void Initialize()
         {
             _eventBus = new EventBus();
+            var csgo = new GameObject("CoroutineService");
+            _coroutineService = csgo.AddComponent<CoroutineService>();
+
+
             GameCore.Instance.Initialize();
         }
 
@@ -24,6 +30,7 @@ namespace Infrastructure.Services
         #region Properties
 
         public static EventBus EventBus => _eventBus;
+        public static ICoroutineService CoroutineService => _coroutineService;
 
         #endregion
     }
