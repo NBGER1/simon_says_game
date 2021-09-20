@@ -5,9 +5,11 @@ using Gameplay.Rivals;
 using Gameplay.Rune;
 using Gameplay.RuneObject;
 using Infrastructure.Abstracts;
+using Infrastructure.Events;
 using Infrastructure.Managers;
 using Infrastructure.Services;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Gameplay.Core
 {
@@ -15,6 +17,7 @@ namespace Gameplay.Core
     {
         #region Editor
 
+        [SerializeField] private GameModel _gameModel;
         [SerializeField] private RivalView _rivalView;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private RunesElements _runesElements;
@@ -27,8 +30,6 @@ namespace Gameplay.Core
 
         private RivalModel _rivalParams;
         private Queue<int> _lastGameSequence = new Queue<int>();
-        private int _maxRuneIndex;
-        private int _minRuneIndex;
 
         #endregion
 
@@ -36,36 +37,83 @@ namespace Gameplay.Core
 
         public void Initialize()
         {
-            Instantiate(_runesElements.Fehu, _runesLayout.transform);
-            Instantiate(_runesElements.Ehwaz, _runesLayout.transform);
+            InitializeRunes();
             UIManager.Instance.Initialize();
-            _playerModel.AddHealth(_playerModel.MaxHealth);
-            _playerView.Initialize(_playerModel);
-            _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.Stage);
-            _rivalView.Initialize(_rivalParams);
-            //StartNewRound();
+            InitializePlayer();
+            InitializeRival();
+
+            GameplayServices.CoroutineService
+                .WaitFor(1.5f)
+                .OnEnd(() => { StartGameSequence(); });
         }
 
-        private void StartNewRound()
+        private void InitializeRival()
         {
-            Debug.Log($"Game Sequence is {_lastGameSequence}");
-            StartGameSequence();
+            _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.Stage);
+            _rivalView.Initialize(_rivalParams);
+        }
+
+        private void InitializePlayer()
+        {
+            _playerModel.AddHealth(_playerModel.MaxHealth);
+            _playerView.Initialize(_playerModel);
+        }
+
+        IEnumerator InstantiateRune(RuneView rune)
+        {
+            Instantiate(rune, _runesLayout.transform);
+            yield return null;
+        }
+
+        private void InitializeRunes()
+        {
+            for (var i = 0; i < _gameModel.RunesInScene; i++)
+            {
+                var rune = _runesElements.GetRuneByIndex(i);
+                if (rune != null)
+                {
+                    GameplayServices.CoroutineService.RunCoroutine(InstantiateRune(rune));
+                }
+            }
         }
 
         private void StartGameSequence()
         {
+            StartRivalTurn();
+            _lastGameSequence = _rivalView.GetNewGameSequence();
             Queue<int> copyQueue = new Queue<int>(_lastGameSequence);
-            for (var i = 0; i < _lastGameSequence.Count; i++)
+            var totalCount = _lastGameSequence.Count;
+            for (var i = 0; i < totalCount; i++)
             {
                 var index = copyQueue.Dequeue();
                 GameplayServices.CoroutineService
                     .WaitFor(i)
                     .OnStart(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); })
-                    .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(HighlightRunes(index)); });
-                GameplayServices.CoroutineService
-                    .WaitFor(i * 2 + 1)
-                    .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); });
+                    .OnEnd(() =>
+                    {
+                        GameplayServices.CoroutineService.RunCoroutine(HighlightRunes(index));
+                        GameplayServices.CoroutineService
+                            .WaitFor(0.8f)
+                            .OnStart(() => { Debug.Log($"I = {i}"); })
+                            .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); });
+                    });
             }
+
+            GameplayServices.CoroutineService
+                .WaitFor(totalCount)
+                .OnEnd(StartPlayerTurn);
+        }
+
+        private void StartPlayerTurn()
+        {
+            var eventParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerTurn, eventParams);
+        }
+
+        private void StartRivalTurn()
+        {
+            var eventParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnRivalTurn, eventParams);
         }
 
         IEnumerator DeselectRune(int index)
@@ -82,6 +130,7 @@ namespace Gameplay.Core
 
         public void ComparePlayerSelection(int index)
         {
+            StartRivalTurn();
             var nextIndex = _lastGameSequence.Dequeue();
             if (index != nextIndex)
             {
@@ -96,14 +145,24 @@ namespace Gameplay.Core
         private void OnPlayerMiss(int correctIndex, int badIndex)
         {
             Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
+            StartGameSequence();
         }
 
         private void OnPlayerSuccess(int index)
         {
             Debug.Log($"{index} is Correct!");
+            var delay = 3;
             if (_lastGameSequence.Count == 0)
             {
-                Debug.Log("You hit your rival!");
+                Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
+                GameplayServices.CoroutineService
+                    .WaitFor(delay)
+                    .OnStart(StartRivalTurn)
+                    .OnEnd(StartGameSequence);
+            }
+            else
+            {
+                StartPlayerTurn();
             }
         }
 
@@ -116,8 +175,7 @@ namespace Gameplay.Core
 
         #region Properties
 
-        public int MaxRuneIndex => _maxRuneIndex;
-        public int MinRuneIndex => _minRuneIndex;
+        public GameModel GameModel => _gameModel;
 
         #endregion
     }

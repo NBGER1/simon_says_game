@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f78e492e94c471ba32f401431271a57, type: 3}
-  m_Name: Runes Elements
+  m_Script: {fileID: 11500000, guid: 8d4d35e7bf3c41d292b1d856357f319a, type: 3}
+  m_Name: GameParams
   m_EditorClassIdentifier: 
-  _runes:
-  - {fileID: 4228907411092120784, guid: 3e37ccdee1f6fed4d870cb5291ae73f6, type: 3}
-  - {fileID: 4695825615591757689, guid: 408d9169303263647baad3ce02427dca, type: 3}
+  _runesInScene: 2

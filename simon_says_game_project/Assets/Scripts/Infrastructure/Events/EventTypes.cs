@@ -6,5 +6,7 @@ namespace Infrastructure.Events
         OnPlayerTakeDamage,
         OnPlayerAddHealth,
         OnRivalAddHealth,
+        OnRivalTurn,
+        OnPlayerTurn,
     }
 }

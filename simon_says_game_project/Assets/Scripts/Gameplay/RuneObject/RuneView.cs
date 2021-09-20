@@ -1,6 +1,7 @@
 using System;
 using Gameplay.Core;
 using Gameplay.Rune;
+using Infrastructure.Events;
 using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ namespace Gameplay.RuneObject
     {
         #region Editor
 
+        [SerializeField] private Button _button;
         [SerializeField] private RawImage _image;
         [SerializeField] private GameObject _highlight;
         [SerializeField] private AudioSource _audioSource;
@@ -36,9 +38,21 @@ namespace Gameplay.RuneObject
             _image.texture = _runeParams.Image;
             _gameIndex = _runeParams.GameIndex;
             _audioSource.clip = _runeParams.Audio;
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+
             DeselectRune();
         }
 
+        private void OnRivalTurn(EventParams eventParams)
+        {
+            _button.interactable = false;
+        }
+
+        private void OnPlayerTurn(EventParams eventParams)
+        {
+            _button.interactable = true;
+        }
 
         public void SelectRune()
         {

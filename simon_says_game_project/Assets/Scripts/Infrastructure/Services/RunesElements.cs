@@ -8,15 +8,21 @@ namespace Infrastructure.Services
     {
         #region Editor
 
-        [SerializeField] private RuneView _runeEhwaz;
-        [SerializeField] private RuneView _runeFehu;
+        [SerializeField] private RuneView[] _runes;
 
         #endregion
 
-        #region Properties
+        #region Methods
 
-        public RuneView Ehwaz => _runeEhwaz;
-        public RuneView Fehu => _runeFehu;
+        public RuneView GetRuneByIndex(int index)
+        {
+            if (index < _runes.Length)
+            {
+                return _runes[index];
+            }
+
+            return null;
+        }
 
         #endregion
     }

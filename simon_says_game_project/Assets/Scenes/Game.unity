@@ -525,6 +525,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1746881846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2231863149257914408, guid: c83819236aac15640bc1f9a6b9317e58,
+    type: 3}
+  m_PrefabInstance: {fileID: 4022430529856330877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1759104891
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b931ff86331d4bf0aa22112affe2736a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameModel: {fileID: 11400000, guid: c15c214ee39617946a446608f30cc68e, type: 2}
   _rivalView: {fileID: 6151567511948976434}
   _playerView: {fileID: 212788501623731970}
   _runesElements: {fileID: 11400000, guid: 106d98b70b4df844f872b9eb87c420a7, type: 2}
@@ -1090,6 +1097,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1069197181}
     m_Modifications:
+    - target: {fileID: 6215292466789737830, guid: c83819236aac15640bc1f9a6b9317e58,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 7fa2208ca247a0042b054db891c106d4, type: 3}
     - target: {fileID: 7101131312220126538, guid: c83819236aac15640bc1f9a6b9317e58,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1200,6 +1212,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RivalView
       objectReference: {fileID: 0}
+    - target: {fileID: 7101131312220126543, guid: c83819236aac15640bc1f9a6b9317e58,
+        type: 3}
+      propertyPath: _turnIndicator
+      value: 
+      objectReference: {fileID: 1746881846}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c83819236aac15640bc1f9a6b9317e58, type: 3}
 --- !u!1 &5901518293383382986
