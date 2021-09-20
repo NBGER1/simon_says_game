@@ -15,3 +15,4 @@ MonoBehaviour:
   _image: {fileID: 2800000, guid: 0be67b2f961205f499a9b5ce13fb8663, type: 3}
   _name: Ehwaz
   _gameIndex: 1
+  _audio: {fileID: 8300000, guid: 519b83699cf5f334888f5b71b63241e8, type: 3}

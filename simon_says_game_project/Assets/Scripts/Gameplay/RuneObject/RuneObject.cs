@@ -1,6 +1,8 @@
 using System;
+using System.Security.Cryptography;
 using Gameplay.Core;
 using Gameplay.Rune;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -12,6 +14,7 @@ namespace Gameplay.RuneObject.Factories
 
         [SerializeField] private RuneParams _params;
         [SerializeField] private GameObject _highlight;
+        [SerializeField] private AudioSource _audioSource;
 
         #endregion
 
@@ -32,20 +35,27 @@ namespace Gameplay.RuneObject.Factories
         {
             _image.texture = _params.Image;
             _gameIndex = _params.GameIndex;
+            _audioSource.clip = _params.Audio;
             DeselectRune();
         }
 
 
         public override void SelectRune()
         {
-            HighlightRune();
-            GameCore.Instance.ComparePlayerSelection(_params.GameIndex);
+            GameplayServices.CoroutineService
+                .WaitFor(1)
+                .OnStart(() =>
+                {
+                    HighlightRune();
+                    GameCore.Instance.ComparePlayerSelection(_params.GameIndex);
+                })
+                .OnEnd(DeselectRune);
         }
 
         public override void HighlightRune()
         {
-            Debug.Log($"Highlighting {_gameIndex}");
             _highlight.SetActive(true);
+            PlayAudio();
         }
 
         public override void DeselectRune()
@@ -55,7 +65,7 @@ namespace Gameplay.RuneObject.Factories
 
         public override void PlayAudio()
         {
-            throw new System.NotImplementedException();
+            _audioSource.Play();
         }
 
         #endregion

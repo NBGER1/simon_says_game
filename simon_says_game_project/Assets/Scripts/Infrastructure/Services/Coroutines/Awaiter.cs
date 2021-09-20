@@ -13,14 +13,16 @@ namespace Infrastructure.Services.Coroutines
 
         #region Methods
 
-        public void OnStart(Action callback)
+        public IAwaiter OnStart(Action callback)
         {
             _onStartCallback = callback;
+            return this;
         }
 
-        public void OnEnd(Action callback)
+        public IAwaiter OnEnd(Action callback)
         {
             _onEndCallback = callback;
+            return this;
         }
 
         public void End()

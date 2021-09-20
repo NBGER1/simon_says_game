@@ -11,6 +11,7 @@ namespace Gameplay.Rune
         [SerializeField] private Texture2D _image;
         [SerializeField] private string _name;
         [SerializeField] private int _gameIndex;
+        [SerializeField] private AudioClip _audio;
 
         #endregion
 
@@ -19,6 +20,7 @@ namespace Gameplay.Rune
         public Texture2D Image => _image;
         public string Name => _name;
         public int GameIndex => _gameIndex;
+        public AudioClip Audio => _audio;
 
         #endregion
     }

@@ -15,3 +15,4 @@ MonoBehaviour:
   _image: {fileID: 2800000, guid: 3183a2ea31fd17d4f8ac871a398abe0d, type: 3}
   _name: Fehu
   _gameIndex: 0
+  _audio: {fileID: 8300000, guid: d965c05d4f6547d4d913f1e63c00088c, type: 3}

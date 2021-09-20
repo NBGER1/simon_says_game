@@ -58,9 +58,10 @@ namespace Gameplay.Core
                 var index = copyQueue.Dequeue();
                 GameplayServices.CoroutineService
                     .WaitFor(i)
+                    .OnStart(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); })
                     .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(HighlightRunes(index)); });
                 GameplayServices.CoroutineService
-                    .WaitFor(i*2+1)
+                    .WaitFor(i * 2 + 1)
                     .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); });
             }
         }
@@ -82,21 +83,28 @@ namespace Gameplay.Core
             var nextIndex = _lastGameSequence.Dequeue();
             if (index != nextIndex)
             {
-                OnPlayerMiss(nextIndex);
+                OnPlayerMiss(nextIndex, index);
             }
             else
             {
-                OnPlayerSuccess();
+                OnPlayerSuccess(index);
             }
         }
 
-        private void OnPlayerMiss(int index)
+        private void OnPlayerMiss(int correctIndex, int badIndex)
         {
-            Debug.Log($"You missed! The correct index was {index}");
+            Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
+            GenerateNewGameSequence();
         }
 
-        private void OnPlayerSuccess()
+        private void OnPlayerSuccess(int index)
         {
+            Debug.Log($"{index} is Correct!");
+            if (_lastGameSequence.Count == 0)
+            {
+                Debug.Log("You hit your rival!");
+                GenerateNewGameSequence();
+            }
         }
 
         #endregion

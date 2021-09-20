@@ -6,8 +6,8 @@ namespace Infrastructure.Services.Coroutines
     {
         #region Methods
 
-        void OnStart(Action callback);
-        void OnEnd(Action callback);
+        IAwaiter OnStart(Action callback);
+        IAwaiter OnEnd(Action callback);
         void Start();
         void End();
 
