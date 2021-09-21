@@ -31,6 +31,7 @@ namespace Gameplay.Player
             _playerModel = playerModel;
             _image.texture = playerModel.Image;
             _name.text = _playerModel.Name;
+            _score.text = _playerModel.Score.ToString();
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);

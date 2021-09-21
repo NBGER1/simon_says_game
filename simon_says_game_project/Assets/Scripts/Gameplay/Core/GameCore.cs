@@ -82,7 +82,7 @@ namespace Gameplay.Core
             _lastGameSequence = _rivalView.GetNewGameSequence();
             if (!_rivalView.IsAlive())
             {
-                OnRivalDeath();
+                OnRivalDefeat();
                 return;
             }
 
@@ -116,9 +116,10 @@ namespace Gameplay.Core
                 .OnEnd(StartPlayerTurn);
         }
 
-        private void OnRivalDeath()
+        private void OnRivalDefeat()
         {
             Debug.Log("RIVAL DEFEATED!");
+            _playerModel.AddScore(_rivalParams.Score);
             GameplayServices.CoroutineService
                 .WaitFor(2)
                 .OnEnd(GetNextRival);
@@ -208,7 +209,6 @@ namespace Gameplay.Core
                 Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
                 var eventParams = EventParams.Empty;
                 GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceSuccess, eventParams);
-                _playerModel.AddScore(10);
                 DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
             }
             else
