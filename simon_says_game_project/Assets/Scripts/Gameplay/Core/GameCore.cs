@@ -17,11 +17,13 @@ namespace Gameplay.Core
     {
         #region Editor
 
+        [SerializeField] private PopupElements _popupElements;
         [SerializeField] private GameModel _gameModel;
         [SerializeField] private RivalView _rivalView;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private RunesElements _runesElements;
         [SerializeField] private GameObject _runesLayout;
+        [SerializeField] private GameObject _canvas;
         [SerializeField] private PlayerModel _playerModel;
 
         #endregion
@@ -120,6 +122,8 @@ namespace Gameplay.Core
         {
             Debug.Log("RIVAL DEFEATED!");
             _playerModel.AddScore(_rivalParams.Score);
+            var eventParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eventParams);
             GameplayServices.CoroutineService
                 .WaitFor(2)
                 .OnEnd(GetNextRival);
@@ -128,7 +132,9 @@ namespace Gameplay.Core
         private void OnPlayerDeath()
         {
             Debug.Log("PLAYER DEFEATED!");
-            //TODO Show defeat popup
+            var eventParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eventParams);
+            Instantiate(_popupElements.LosePopup, _canvas.transform);
         }
 
         public void ResetStage()
@@ -137,13 +143,24 @@ namespace Gameplay.Core
             InitializePlayer();
 
             GameplayServices.CoroutineService
-                .WaitFor(1.5f)
+                .WaitFor(0.5f)
                 .OnEnd(() => { StartGameSequence(); });
+        }
+
+        private void OnGameOver()
+        {
+            Instantiate(_popupElements.WinPopup, _canvas.transform);
         }
 
         private void GetNextRival()
         {
             var newStage = _playerModel.Stage + 1;
+            if (RivalManager.Instance.GetRivalByIndex(newStage) == null)
+            {
+                OnGameOver();
+                return;
+            }
+
             _playerModel.SetStage(newStage);
             ResetStage();
         }
@@ -229,6 +246,7 @@ namespace Gameplay.Core
         #region Properties
 
         public GameModel GameModel => _gameModel;
+        public PlayerModel PlayerModel => _playerModel;
 
         #endregion
     }

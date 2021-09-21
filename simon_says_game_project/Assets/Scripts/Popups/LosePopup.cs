@@ -10,6 +10,7 @@ public class LosePopup : MonoBehaviour
         //TODO Register new entry to leaderboard
         //TODO Show leaderboard popup
         GameCore.Instance.ResetStage();
+        Destroy(gameObject);
     }
 
     #endregion

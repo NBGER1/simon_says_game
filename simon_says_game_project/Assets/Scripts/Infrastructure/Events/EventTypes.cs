@@ -12,7 +12,7 @@ namespace Infrastructure.Events
         OnRuneSelectionEnd,
         OnPlayerSequenceSuccess,
         OnPlayerSequenceFailure,
-        OnRivalDeath,
+        OnRivalDefeat,
         OnPlayerDeath,
         OnPlayerScoreChange,
     }

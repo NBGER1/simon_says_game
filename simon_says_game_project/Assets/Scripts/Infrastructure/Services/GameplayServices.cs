@@ -1,4 +1,5 @@
 using Gameplay.Core;
+using Infrastructure.Managers;
 using Infrastructure.Services.Coroutines;
 using UnityEngine;
 
@@ -20,8 +21,7 @@ namespace Infrastructure.Services
             _eventBus = new EventBus();
             var csgo = new GameObject("CoroutineService");
             _coroutineService = csgo.AddComponent<CoroutineService>();
-
-
+            SfxManager.Instance.Initialize();
             GameCore.Instance.Initialize();
         }
 

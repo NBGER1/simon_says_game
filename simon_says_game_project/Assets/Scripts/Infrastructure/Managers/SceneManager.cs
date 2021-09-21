@@ -16,6 +16,11 @@ namespace Infrastructure.Managers
             Application.Quit();
         }
 
+        public static void MoveToMainMenuScene()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Intro");
+        }
+
         #endregion
     }
 }

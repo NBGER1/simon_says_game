@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 366544d26e624ca2b43f34bd8b0a81d2, type: 3}
-  m_Name: PlayerParams
+  m_Script: {fileID: 11500000, guid: ab3c03a93f5f4472896f58a5b7d51509, type: 3}
+  m_Name: GameScence SFX Model
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _maxScore: 1000
-  _image: {fileID: 2800000, guid: 4ddc5955cbfcb154db82b41c55b68340, type: 3}
-  _name: Player
-  _health: 100
-  _stage: 1
-  _score: 0
+  _roundWinClip: {fileID: 8300000, guid: 79d7ccda9be09a049b314d72686dc2f9, type: 3}
+  _roundLoseClip: {fileID: 8300000, guid: 7bf916e6795434345ba0829a78c95975, type: 3}

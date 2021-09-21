@@ -2116,6 +2116,66 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 112799420765069189, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420765069189, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420765069189, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420765069189, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420899312565, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_text
+      value: PLAY
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420899312565, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420899312565, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420899312565, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799421537362628, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799421537362628, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799421537362628, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799421537362628, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d050a68ac129f1c4d929cf6809562388, type: 3}
 --- !u!224 &3448135663987871268
