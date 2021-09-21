@@ -1,4 +1,5 @@
 ﻿using Gameplay.Core;
+using Infrastructure.Managers;
 using UnityEngine;
 
 public class LosePopup : MonoBehaviour
@@ -7,9 +8,7 @@ public class LosePopup : MonoBehaviour
 
     public void Continue()
     {
-        //TODO Register new entry to leaderboard
-        //TODO Show leaderboard popup
-        GameCore.Instance.ResetStage();
+        SceneManager.MoveToMainMenuScene();
         Destroy(gameObject);
     }
 

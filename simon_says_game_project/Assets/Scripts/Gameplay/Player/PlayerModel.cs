@@ -45,19 +45,25 @@ namespace Gameplay.Player
         public void AddScore(int value)
         {
             _score = Mathf.Min(_score + value, _maxScore);
+            SetBestScore();
             var eParams = new OnPlayerScoreChange(_score);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
-            if (_score > _bestScore)
-            {
-                _bestScore = _score;
-            }
         }
 
         public void ResetScore()
         {
+            SetBestScore();
             _score = 0;
             var eParams = new OnPlayerScoreChange(_score);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
+        }
+
+        private void SetBestScore()
+        {
+            if (_score > _bestScore)
+            {
+                _bestScore = _score;
+            }
         }
 
         public void SetStage(int value)

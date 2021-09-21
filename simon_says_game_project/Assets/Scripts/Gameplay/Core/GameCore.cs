@@ -123,10 +123,16 @@ namespace Gameplay.Core
             Debug.Log("RIVAL DEFEATED!");
             _playerModel.AddScore(_rivalParams.Score);
             var eventParams = EventParams.Empty;
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eventParams);
+            GameplayServices.EventBus.Publish(EventTypes.OnRivalDefeat, eventParams);
             GameplayServices.CoroutineService
                 .WaitFor(2)
                 .OnEnd(GetNextRival);
+        }
+
+        public void ResetPlayer()
+        {
+            _playerModel.SetStage(0);
+            _playerModel.ResetScore();
         }
 
         private void OnPlayerDeath()
@@ -134,6 +140,7 @@ namespace Gameplay.Core
             Debug.Log("PLAYER DEFEATED!");
             var eventParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eventParams);
+            ResetPlayer();
             Instantiate(_popupElements.LosePopup, _canvas.transform);
         }
 
@@ -149,6 +156,7 @@ namespace Gameplay.Core
 
         private void OnGameOver()
         {
+            ResetPlayer();
             Instantiate(_popupElements.WinPopup, _canvas.transform);
         }
 
@@ -220,10 +228,8 @@ namespace Gameplay.Core
 
         private void OnPlayerSuccess()
         {
-            var delay = 3;
             if (_lastGameSequence.Count == 0)
             {
-                Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
                 var eventParams = EventParams.Empty;
                 GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceSuccess, eventParams);
                 DelayedCallbacks(3, StartRivalTurn, StartGameSequence);

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3c03a93f5f4472896f58a5b7d51509, type: 3}
   m_Name: GameScence SFX Model
   m_EditorClassIdentifier: 
-  _roundWinClip: {fileID: 8300000, guid: 79d7ccda9be09a049b314d72686dc2f9, type: 3}
-  _roundLoseClip: {fileID: 8300000, guid: 7bf916e6795434345ba0829a78c95975, type: 3}
+  _roundWinClip: {fileID: 8300000, guid: 7bf916e6795434345ba0829a78c95975, type: 3}
+  _roundLoseClip: {fileID: 8300000, guid: 79d7ccda9be09a049b314d72686dc2f9, type: 3}
