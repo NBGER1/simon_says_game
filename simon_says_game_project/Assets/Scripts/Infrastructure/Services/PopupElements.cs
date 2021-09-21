@@ -10,6 +10,7 @@ namespace Infrastructure.Services
 
         [SerializeField] private GameObject _losePopup;
         [SerializeField] private GameObject _winPopup;
+        [SerializeField] private GameObject _scoreboardEntryPrefab;
 
         #endregion
 
@@ -17,6 +18,7 @@ namespace Infrastructure.Services
 
         public GameObject WinPopup => _winPopup;
         public GameObject LosePopup => _losePopup;
+        public GameObject ScoreboardEntryPrefab => _scoreboardEntryPrefab;
 
         #endregion
     }

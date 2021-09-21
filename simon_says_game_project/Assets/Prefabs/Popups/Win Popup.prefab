@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 1000
+    m_Top: 750
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 500
@@ -727,3 +727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f786b5396b4d27829e9984b7fb2941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreBoardEntryPrefab: {fileID: 6005462175045303985, guid: e8ad0f906e893704696a765c3eedf1d7,
+    type: 3}
+  _entriesContainer: {fileID: 0}
+  _scoreboardUI: {fileID: 5691202587703715202, guid: 77e632e2ff3e4b54abeaf79d67f377b8,
+    type: 3}

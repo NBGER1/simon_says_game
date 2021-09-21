@@ -25,13 +25,13 @@ namespace Gameplay.Scoreboard
 
         public static string[] GetEntryFileNames(int maxEntries)
         {
-            return Directory.GetFiles(ENTRIES_PATH);
+            return Directory.GetFiles(ENTRIES_PATH, "*.json");
         }
 
         public static ScoreboardEntryParams GetEntryParams(string entryFileName)
         {
-            var fileName = entryFileName;
-            var path = ENTRIES_PATH + fileName + ".json";
+            var path = entryFileName;
+            Debug.Log($"Loading file: {path}");
             var jsonContent = File.ReadAllText(path);
             return JsonUtility.FromJson<ScoreboardEntryParams>(jsonContent);
         }

@@ -18,6 +18,11 @@ namespace Gameplay.Player
         [SerializeField] private float _health;
         [SerializeField] private int _stage;
         [SerializeField] private int _score;
+        [SerializeField] private int _bestScore = 0;
+
+        #endregion
+
+        #region Fields
 
         #endregion
 
@@ -42,6 +47,10 @@ namespace Gameplay.Player
             _score = Mathf.Min(_score + value, _maxScore);
             var eParams = new OnPlayerScoreChange(_score);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
+            if (_score > _bestScore)
+            {
+                _bestScore = _score;
+            }
         }
 
         public void ResetScore()
@@ -65,6 +74,7 @@ namespace Gameplay.Player
         public float MaxHealth => _maxHealth;
         public int Stage => _stage;
         public int Score => _score;
+        public int BestScore => _bestScore;
         public string Name => _name;
 
         #endregion

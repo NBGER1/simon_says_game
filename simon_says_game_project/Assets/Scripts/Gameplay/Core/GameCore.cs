@@ -247,6 +247,7 @@ namespace Gameplay.Core
 
         public GameModel GameModel => _gameModel;
         public PlayerModel PlayerModel => _playerModel;
+        public GameObject Canvas => _canvas;
 
         #endregion
     }

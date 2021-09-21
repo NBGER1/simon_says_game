@@ -12,6 +12,7 @@ namespace Popups
 
         [SerializeField] private PlayerModel _playerModel;
         [SerializeField] private TextMeshProUGUI _playButtonText;
+        [SerializeField] private TextMeshProUGUI _bestScoreValueText;
 
         #endregion
 
@@ -34,6 +35,8 @@ namespace Popups
             {
                 _playButtonText.text = NEW_PLAY_BUTTON_TEXT;
             }
+
+            _bestScoreValueText.text = _playerModel.BestScore.ToString();
         }
 
         public void Play()
