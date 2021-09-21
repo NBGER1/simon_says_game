@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace Infrastructure.Managers
 {
-    public class SceneManager
+    public static class SceneManager
     {
         #region Methods
 
-        public void MoveToGameScene()
+        public static void MoveToGameScene()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
         }
 
-        public void ExitApp()
+        public static void ExitApp()
         {
             Application.Quit();
         }

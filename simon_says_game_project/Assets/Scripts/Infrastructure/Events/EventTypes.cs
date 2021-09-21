@@ -14,5 +14,6 @@ namespace Infrastructure.Events
         OnPlayerSequenceFailure,
         OnRivalDeath,
         OnPlayerDeath,
+        OnPlayerScoreChange,
     }
 }

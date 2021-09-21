@@ -127,6 +127,11 @@ namespace Gameplay.Core
         private void OnPlayerDeath()
         {
             Debug.Log("PLAYER DEFEATED!");
+            //TODO Show defeat popup
+        }
+
+        public void ResetStage()
+        {
             InitializeRival();
             InitializePlayer();
 
@@ -137,10 +142,9 @@ namespace Gameplay.Core
 
         private void GetNextRival()
         {
-            _playerModel.AddScore(10);
             var newStage = _playerModel.Stage + 1;
             _playerModel.SetStage(newStage);
-            InitializeRival();
+            ResetStage();
         }
 
         private void StartPlayerTurn()
@@ -204,6 +208,7 @@ namespace Gameplay.Core
                 Debug.Log($"NICE! PREPARE FOR NEXT ROUND IN {delay}");
                 var eventParams = EventParams.Empty;
                 GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceSuccess, eventParams);
+                _playerModel.AddScore(10);
                 DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
             }
             else

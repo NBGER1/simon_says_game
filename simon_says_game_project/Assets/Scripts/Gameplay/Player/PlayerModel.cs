@@ -40,11 +40,15 @@ namespace Gameplay.Player
         public void AddScore(int value)
         {
             _score = Mathf.Min(_score + value, _maxScore);
+            var eParams = new OnPlayerScoreChange(_score);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
         }
 
         public void ResetScore()
         {
             _score = 0;
+            var eParams = new OnPlayerScoreChange(_score);
+            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
         }
 
         public void SetStage(int value)

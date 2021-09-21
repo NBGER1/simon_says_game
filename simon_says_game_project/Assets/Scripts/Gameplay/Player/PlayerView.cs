@@ -14,6 +14,7 @@ namespace Gameplay.Player
         [SerializeField] private RawImage _image;
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private GameObject _turnIndicator;
+        [SerializeField] private TextMeshProUGUI _score;
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace Gameplay.Player
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerScoreChange, OnPlayerScoreChange);
         }
 
 
@@ -55,6 +57,12 @@ namespace Gameplay.Player
         private void OnPlayerTurn(EventParams obj)
         {
             _turnIndicator.SetActive(true);
+        }
+
+        private void OnPlayerScoreChange(EventParams obj)
+        {
+            var eParams = obj as OnPlayerScoreChange;
+            _score.text = eParams.Score.ToString();
         }
 
         #endregion
