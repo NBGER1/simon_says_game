@@ -16,5 +16,6 @@ namespace Infrastructure.Events
         OnPlayerDeath,
         OnPlayerScoreChange,
         OnGameOverWin,
+        OnGameTimerValueChange
     }
 }

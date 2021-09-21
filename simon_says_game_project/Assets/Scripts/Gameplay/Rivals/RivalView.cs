@@ -17,7 +17,9 @@ namespace Gameplay.Rivals
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private GameObject _turnIndicator;
-
+        [SerializeField] private GameObject _legendaryIndicator;
+        [SerializeField] private Color32 _damageColor;
+        [SerializeField] private Color32 _defaultColor;
         #endregion
 
         #region Fields
@@ -35,7 +37,7 @@ namespace Gameplay.Rivals
             _image.texture = _rivalModel.Image;
             _name.text = _rivalModel.Name;
             _health = _rivalModel.Health;
-
+            _legendaryIndicator.SetActive(_rivalModel.IsLegendary);
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
 
@@ -51,8 +53,16 @@ namespace Gameplay.Rivals
             _health = Mathf.Max(_health - _rivalModel.SelfDamage, 0);
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnRivalTakeDamage, eParams);
+            TakeDamageEffect();
         }
 
+        private void TakeDamageEffect()
+        {
+            GameplayServices.CoroutineService
+                .WaitFor(0.1f)
+                .OnStart(() => { _image.color = _damageColor; })
+                .OnEnd(() => { _image.color = _defaultColor; });
+        }
         private void OnRivalTurn(EventParams obj)
         {
             _turnIndicator.SetActive(true);

@@ -14,8 +14,9 @@ namespace Gameplay.Rivals
         [SerializeField] [Range(1f, 1000f)] private float _selfDamage;
         [SerializeField] [Range(0, 100)] private int _score;
         [SerializeField] private int _minGameSequenceLength;
-        [SerializeField] [Range(2, 4)] private int _maxGameSequenceLength;
+        [SerializeField] [Range(2, 100)] private int _maxGameSequenceLength;
         [SerializeField] [Range(0f, 100f)] private float _damage;
+        [SerializeField] private bool _isLegendary;
         [SerializeField] private AudioClip _introAudio;
         [SerializeField] private AudioClip _attackAudio;
         [SerializeField] private AudioClip _defeatAudio;
@@ -32,6 +33,7 @@ namespace Gameplay.Rivals
         public float Damage => _damage;
         public int MinGameSequenceLength => _minGameSequenceLength;
         public int MaxGameSequenceLength => _maxGameSequenceLength;
+        public bool IsLegendary => _isLegendary;
         public AudioClip IntroAudio => _introAudio;
         public AudioClip AttackAudio => _attackAudio;
         public AudioClip DefeatAudio => _defeatAudio;

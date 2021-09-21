@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _runesInScene: 6
   _runeSelectionDelay: 0.8
+  _gameTimer: 3

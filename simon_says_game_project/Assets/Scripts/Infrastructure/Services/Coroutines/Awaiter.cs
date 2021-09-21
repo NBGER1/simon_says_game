@@ -7,6 +7,7 @@ namespace Infrastructure.Services.Coroutines
         #region Fields
 
         private Action _onStartCallback;
+        private Action<int> _onProgressCallback;
         private Action _onEndCallback;
 
         #endregion
@@ -19,6 +20,12 @@ namespace Infrastructure.Services.Coroutines
             return this;
         }
 
+        public IAwaiter OnProgress(Action<int> callback)
+        {
+            _onProgressCallback = callback;
+            return this;
+        }
+
         public IAwaiter OnEnd(Action callback)
         {
             _onEndCallback = callback;
@@ -28,6 +35,11 @@ namespace Infrastructure.Services.Coroutines
         public void End()
         {
             _onEndCallback?.Invoke();
+        }
+
+        public void Progress(int param)
+        {
+            _onProgressCallback?.Invoke(param);
         }
 
         public void Start()

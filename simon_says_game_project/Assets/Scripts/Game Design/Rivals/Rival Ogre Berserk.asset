@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
+  m_Name: Rival Ogre Berserk
+  m_EditorClassIdentifier: 
+  _image: {fileID: 2800000, guid: d431fdc6f4e87144dabac8229073919a, type: 3}
+  _name: Ogre Berserk
+  _health: 100
+  _selfDamage: 35
+  _score: 50
+  _minGameSequenceLength: 4
+  _maxGameSequenceLength: 10
+  _damage: 50
+  _isLegendary: 1
+  _introAudio: {fileID: 8300000, guid: f9f9f567036fcf245a5563ca7866334b, type: 3}
+  _attackAudio: {fileID: 0}
+  _defeatAudio: {fileID: 0}

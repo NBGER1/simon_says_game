@@ -1,6 +1,8 @@
 ﻿using Gameplay.Core;
 using Infrastructure.Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using SceneManager = Infrastructure.Managers.SceneManager;
 
 public class LosePopup : MonoBehaviour
 {

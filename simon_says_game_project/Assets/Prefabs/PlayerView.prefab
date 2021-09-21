@@ -683,6 +683,12 @@ MonoBehaviour:
   _name: {fileID: 6432014528402096330}
   _turnIndicator: {fileID: 7632672050407803888}
   _score: {fileID: 6980560114390811214}
+  _damageColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  _defaultColor:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!1 &7997558717558277421
 GameObject:
   m_ObjectHideFlags: 0

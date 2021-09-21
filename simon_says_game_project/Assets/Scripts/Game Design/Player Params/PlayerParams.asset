@@ -17,6 +17,6 @@ MonoBehaviour:
   _image: {fileID: 2800000, guid: d61a46ee68acc4f42a1abe848f259834, type: 3}
   _name: Player
   _health: 100
-  _stage: 0
+  _lastRivalIndex: 2
   _score: 0
   _bestScore: 0

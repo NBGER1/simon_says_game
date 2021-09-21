@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
+  m_Name: Rival Silver Parasite
+  m_EditorClassIdentifier: 
+  _image: {fileID: 2800000, guid: f7f311db38cce5b44900f3e058fba1a2, type: 3}
+  _name: Silver Parasite
+  _health: 100
+  _selfDamage: 90
+  _score: 25
+  _minGameSequenceLength: 7
+  _maxGameSequenceLength: 7
+  _damage: 33
+  _isLegendary: 0
+  _introAudio: {fileID: 8300000, guid: 8b6afca8bf48a12448584156e1ec246e, type: 3}
+  _attackAudio: {fileID: 0}
+  _defeatAudio: {fileID: 0}

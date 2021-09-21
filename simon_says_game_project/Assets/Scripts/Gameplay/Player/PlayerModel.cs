@@ -12,11 +12,11 @@ namespace Gameplay.Player
         #region Editor
 
         [SerializeField] [Range(1f, 100f)] private float _maxHealth;
-        [SerializeField] [Range(0, 1000)] private int _maxScore;
+        [SerializeField] [Range(0, 10000)] private int _maxScore;
         [SerializeField] private Texture2D _image;
         [SerializeField] private string _name;
         [SerializeField] private float _health;
-        [SerializeField] private int _stage;
+        [SerializeField] private int _lastRivalIndex=-1;
         [SerializeField] private int _score;
         [SerializeField] private int _bestScore = 0;
 
@@ -66,9 +66,9 @@ namespace Gameplay.Player
             }
         }
 
-        public void SetStage(int value)
+        public void SetRivalIndex(int value)
         {
-            _stage = value;
+            _lastRivalIndex = value;
         }
 
         #endregion
@@ -78,7 +78,7 @@ namespace Gameplay.Player
         public Texture2D Image => _image;
         public float Health => _health;
         public float MaxHealth => _maxHealth;
-        public int Stage => _stage;
+        public int LastRivalIndex => _lastRivalIndex;
         public int Score => _score;
         public int BestScore => _bestScore;
         public string Name => _name;

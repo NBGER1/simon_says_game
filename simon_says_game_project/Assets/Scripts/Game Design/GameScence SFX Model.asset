@@ -15,3 +15,4 @@ MonoBehaviour:
   _roundWinClip: {fileID: 8300000, guid: 7bf916e6795434345ba0829a78c95975, type: 3}
   _roundLoseClip: {fileID: 8300000, guid: 79d7ccda9be09a049b314d72686dc2f9, type: 3}
   _gameOverWinClip: {fileID: 8300000, guid: 74847f926baa7eb418abda9e4484aa0f, type: 3}
+  _onTakenDamageClip: {fileID: 8300000, guid: d0671e8a2435b634d996665a326484b1, type: 3}

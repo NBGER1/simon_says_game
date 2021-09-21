@@ -1,3 +1,4 @@
+using Gameplay.Events;
 using Infrastructure.Abstracts;
 using Infrastructure.Events;
 using Infrastructure.Services;
@@ -21,6 +22,14 @@ namespace Infrastructure.Managers
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalDefeat, OnRivalDefeat);
             GameplayServices.EventBus.Subscribe(EventTypes.OnGameOverWin, OnGameOverWin);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTakeDamage, OnDamageTaken);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTakeDamage, OnDamageTaken);
+        }
+
+        private void OnDamageTaken(EventParams obj)
+        {
+            _audioSource.clip = _sfxModel.OnTakenDamageClip;
+            _audioSource.Play();
         }
 
         private void OnGameOverWin(EventParams obj)

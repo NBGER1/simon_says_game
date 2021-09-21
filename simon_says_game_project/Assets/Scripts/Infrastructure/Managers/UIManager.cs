@@ -1,5 +1,9 @@
+using Gameplay.Events;
 using Gameplay.HealthBar;
 using Infrastructure.Abstracts;
+using Infrastructure.Events;
+using Infrastructure.Services;
+using TMPro;
 using UnityEngine;
 
 namespace Infrastructure.Managers
@@ -10,6 +14,7 @@ namespace Infrastructure.Managers
 
         [SerializeField] private HealthBar _playerHealthBar;
         [SerializeField] private HealthBar _rivalHealthBar;
+        [SerializeField] private TextMeshProUGUI _gameTimer;
 
         #endregion
 
@@ -19,6 +24,13 @@ namespace Infrastructure.Managers
         {
             _playerHealthBar.Initialize();
             _rivalHealthBar.Initialize();
+            GameplayServices.EventBus.Subscribe(EventTypes.OnGameTimerValueChange, OnGameTimerValueChange);
+        }
+
+        private void OnGameTimerValueChange(EventParams obj)
+        {
+            var eParams = obj as OnGameTimerValueChange;
+            _gameTimer.text = eParams.Time.ToString();
         }
 
         protected override UIManager GetInstance()

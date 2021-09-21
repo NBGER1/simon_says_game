@@ -15,6 +15,8 @@ namespace Gameplay.Player
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private GameObject _turnIndicator;
         [SerializeField] private TextMeshProUGUI _score;
+        [SerializeField] private Color32 _damageColor;
+        [SerializeField] private Color32 _defaultColor;
 
         #endregion
 
@@ -32,6 +34,7 @@ namespace Gameplay.Player
             _image.texture = playerModel.Image;
             _name.text = _playerModel.Name;
             _score.text = _playerModel.Score.ToString();
+            _turnIndicator.SetActive(false);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
@@ -43,6 +46,15 @@ namespace Gameplay.Player
         {
             var eParams = obj as OnDamageTaken;
             _playerModel.RemoveHealth(eParams.Damage);
+            TakeDamageEffect();
+        }
+
+        private void TakeDamageEffect()
+        {
+            GameplayServices.CoroutineService
+                .WaitFor(0.1f)
+                .OnStart(() => { _image.color = _damageColor; })
+                .OnEnd(() => { _image.color = _defaultColor; });
         }
 
         private void OnRivalTurn(EventParams obj)

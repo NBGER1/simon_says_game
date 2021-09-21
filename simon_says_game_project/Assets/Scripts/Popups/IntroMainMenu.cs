@@ -27,7 +27,7 @@ namespace Popups
 
         private void Awake()
         {
-            if (_playerModel.Stage > 0)
+            if (_playerModel.LastRivalIndex > -1)
             {
                 _playButtonText.text = CONTINUE_PLAY_BUTTON_TEXT;
             }

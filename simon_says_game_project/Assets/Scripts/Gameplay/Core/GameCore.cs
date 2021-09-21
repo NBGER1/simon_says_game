@@ -51,7 +51,17 @@ namespace Gameplay.Core
 
         private void InitializeRival()
         {
-            _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.Stage);
+            var rivalIndex = -1;
+            if (_playerModel.LastRivalIndex > -1)
+            {
+                _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.LastRivalIndex);
+            }
+            else
+            {
+                (_rivalParams, rivalIndex) = RivalManager.Instance.GetRandomRival();
+                _playerModel.SetRivalIndex(rivalIndex);
+            }
+
             _rivalView.Initialize(_rivalParams);
         }
 
@@ -107,8 +117,7 @@ namespace Gameplay.Core
                     {
                         GameplayServices.CoroutineService.RunCoroutine(HighlightRunes(index));
                         GameplayServices.CoroutineService
-                            .WaitFor(0.8f)
-                            .OnStart(() => { Debug.Log($"I = {i}"); })
+                            .WaitFor(_gameModel.RuneSelectionDelay)
                             .OnEnd(() => { GameplayServices.CoroutineService.RunCoroutine(DeselectRune(index)); });
                     });
             }
@@ -131,7 +140,7 @@ namespace Gameplay.Core
 
         public void ResetPlayer()
         {
-            _playerModel.SetStage(0);
+            _playerModel.SetRivalIndex(-1);
             _playerModel.ResetScore();
         }
 
@@ -162,16 +171,9 @@ namespace Gameplay.Core
             Instantiate(_popupElements.WinPopup, _canvas.transform);
         }
 
+
         private void GetNextRival()
         {
-            var newStage = _playerModel.Stage + 1;
-            if (RivalManager.Instance.GetRivalByIndex(newStage) == null)
-            {
-                OnGameOver();
-                return;
-            }
-
-            _playerModel.SetStage(newStage);
             ResetStage();
         }
 
@@ -179,6 +181,26 @@ namespace Gameplay.Core
         {
             var eventParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTurn, eventParams);
+            /**
+             *          GameplayServices.CoroutineService
+                 .WaitFor(_gameModel.GameTimer)
+                 .OnStart(() =>
+                 {
+                     var eventParams = EventParams.Empty;
+                     GameplayServices.EventBus.Publish(EventTypes.OnPlayerTurn, eventParams);
+                 })
+                 .OnProgress((value) =>
+                 {
+                     Debug.Log($"Progress is {value}");
+                     var eParams = new OnGameTimerValueChange(value);
+                     GameplayServices.EventBus.Publish(EventTypes.OnGameTimerValueChange, eParams);
+                 })
+                 .OnEnd(() =>
+                 {
+                     var eventParams = EventParams.Empty;
+                     GameplayServices.EventBus.Publish(EventTypes.OnRivalTurn, eventParams);
+                 });
+             */
         }
 
         private void StartRivalTurn()

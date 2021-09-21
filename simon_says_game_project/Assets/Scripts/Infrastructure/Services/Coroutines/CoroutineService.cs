@@ -29,7 +29,12 @@ namespace Infrastructure.Services.Coroutines
         {
             yield return null;
             awaiter.Start();
-            yield return new WaitForSeconds(delay);
+            for (var i = 0; i < delay; i++)
+            {
+                yield return new WaitForSeconds(1);
+                awaiter.Progress(i);
+            }
+
             awaiter.End();
         }
 
