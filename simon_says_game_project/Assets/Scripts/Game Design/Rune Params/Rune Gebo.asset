@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f44bd2f76314aa0adf4166fdd74c95a, type: 3}
-  m_Name: Rune Ehwaz Params
+  m_Name: Rune Gebo
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: 0be67b2f961205f499a9b5ce13fb8663, type: 3}
-  _name: Ehwaz
-  _gameIndex: 1
-  _audio: {fileID: 8300000, guid: e7b8dcaf322a95d4cbfaf3466d042bfa, type: 3}
+  _image: {fileID: 2800000, guid: de045f687a6616c42a5452bce362f30f, type: 3}
+  _name: Gebo
+  _gameIndex: 4
+  _audio: {fileID: 8300000, guid: fa2c4c404b254ea4bb42a535a22ba1f0, type: 3}

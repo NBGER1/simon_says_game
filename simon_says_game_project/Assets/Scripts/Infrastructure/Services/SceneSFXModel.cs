@@ -9,6 +9,7 @@ namespace Infrastructure.Services
 
         [SerializeField] private AudioClip _roundWinClip;
         [SerializeField] private AudioClip _roundLoseClip;
+        [SerializeField] private AudioClip _gameOverWinClip;
 
         #endregion
 
@@ -16,6 +17,7 @@ namespace Infrastructure.Services
 
         public AudioClip RoundWinClip => _roundWinClip;
         public AudioClip RoundLoseClip => _roundLoseClip;
+        public AudioClip GameOverWinClip => _gameOverWinClip;
 
         #endregion
     }

@@ -157,6 +157,8 @@ namespace Gameplay.Core
         private void OnGameOver()
         {
             ResetPlayer();
+            var eventParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnGameOverWin, eventParams);
             Instantiate(_popupElements.WinPopup, _canvas.transform);
         }
 

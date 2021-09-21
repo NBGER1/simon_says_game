@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 689334684867259458}
   - component: {fileID: 1368452100327829920}
   m_Layer: 5
-  m_Name: Rune Tiwaz
+  m_Name: Rune Gebo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
   _image: {fileID: 4228907410624045209}
   _highlight: {fileID: 8794969711664973057}
   _audioSource: {fileID: 1368452100327829920}
-  _runeParams: {fileID: 11400000, guid: e74bdd2b9392f2e44944ad88c79cef66, type: 2}
+  _runeParams: {fileID: 11400000, guid: 6dc99807ea32a2848a812b64229e6ca7, type: 2}
 --- !u!114 &689334684867259458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,7 +575,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.5225707, b: 0.47450984, a: 1}
+      maxColor: {r: 1, g: 0.897575, b: 0.47450984, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14834,7 +14834,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.8036624, g: 0.3726415, b: 1, a: 1}
+      maxColor: {r: 0.39542297, g: 1, b: 0.37254906, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

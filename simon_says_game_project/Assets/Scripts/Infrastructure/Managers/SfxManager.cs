@@ -20,6 +20,13 @@ namespace Infrastructure.Managers
         {
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalDefeat, OnRivalDefeat);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnGameOverWin, OnGameOverWin);
+        }
+
+        private void OnGameOverWin(EventParams obj)
+        {
+            _audioSource.clip = _sfxModel.GameOverWinClip;
+            _audioSource.Play();
         }
 
         private void OnPlayerDeath(EventParams obj)

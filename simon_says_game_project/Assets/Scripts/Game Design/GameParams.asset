@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d4d35e7bf3c41d292b1d856357f319a, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  _runesInScene: 3
+  _runesInScene: 6
   _runeSelectionDelay: 0.8
