@@ -12,11 +12,13 @@ namespace Gameplay.Player
         #region Editor
 
         [SerializeField] [Range(1f, 100f)] private float _maxHealth;
+        [SerializeField] [Range(1, 3)] private int _maxLives;
+        [SerializeField] private int _lives;
         [SerializeField] [Range(0, 10000)] private int _maxScore;
         [SerializeField] private Texture2D _image;
         [SerializeField] private string _name;
         [SerializeField] private float _health;
-        [SerializeField] private int _lastRivalIndex=-1;
+        [SerializeField] private int _lastRivalIndex = -1;
         [SerializeField] private int _score;
         [SerializeField] private int _bestScore = 0;
 
@@ -40,6 +42,16 @@ namespace Gameplay.Player
             _health = Mathf.Max(_health - value, 0);
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
+        }
+
+        public void LoseLife()
+        {
+            _lives = Mathf.Max(_lives - 1, 0);
+        }
+
+        public void ResetLives()
+        {
+            _lives = _maxLives;
         }
 
         public void AddScore(int value)
@@ -77,6 +89,8 @@ namespace Gameplay.Player
 
         public Texture2D Image => _image;
         public float Health => _health;
+        public int MaxLives => _maxLives;
+        public int Lives => _lives;
         public float MaxHealth => _maxHealth;
         public int LastRivalIndex => _lastRivalIndex;
         public int Score => _score;

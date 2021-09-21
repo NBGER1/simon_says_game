@@ -17,6 +17,7 @@ namespace Gameplay.Player
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private Color32 _damageColor;
         [SerializeField] private Color32 _defaultColor;
+        [SerializeField] private GameObject[] _playerLivesSprites;
 
         #endregion
 
@@ -35,10 +36,28 @@ namespace Gameplay.Player
             _name.text = _playerModel.Name;
             _score.text = _playerModel.Score.ToString();
             _turnIndicator.SetActive(false);
+            for (var i = 0; i < _playerModel.MaxLives; i++)
+            {
+                if (i + 1 <= _playerModel.Lives)
+                {
+                    _playerLivesSprites[i].SetActive(true);
+                }
+                else
+                {
+                    _playerLivesSprites[i].SetActive(false);
+                }
+            }
+
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerScoreChange, OnPlayerScoreChange);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
+        }
+
+        private void OnPlayerDeath(EventParams obj)
+        {
+            _playerModel.LoseLife();
         }
 
 
@@ -62,7 +81,12 @@ namespace Gameplay.Player
             _turnIndicator.SetActive(false);
         }
 
-        public bool IsAlive()
+        public bool hasLives()
+        {
+            return _playerModel.Lives > 0;
+        }
+
+        public bool hasHealth()
         {
             return _playerModel.Health > 0;
         }

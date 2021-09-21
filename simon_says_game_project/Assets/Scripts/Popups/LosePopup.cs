@@ -10,7 +10,7 @@ public class LosePopup : MonoBehaviour
 
     public void Continue()
     {
-        SceneManager.MoveToMainMenuScene();
+        GameCore.Instance.ResetStage();
         Destroy(gameObject);
     }
 

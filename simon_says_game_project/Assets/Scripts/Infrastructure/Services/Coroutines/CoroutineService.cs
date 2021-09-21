@@ -21,6 +21,7 @@ namespace Infrastructure.Services.Coroutines
         public IAwaiter WaitFor(float delay)
         {
             var awaiter = new Awaiter();
+
             RunCoroutine(WaitForInternal(delay, awaiter));
             return awaiter;
         }
@@ -29,10 +30,11 @@ namespace Infrastructure.Services.Coroutines
         {
             yield return null;
             awaiter.Start();
+            var timeIteration = delay % 1 > 0 ? delay % 1 : 1;
             for (var i = 0; i < delay; i++)
             {
-                yield return new WaitForSeconds(1);
                 awaiter.Progress(i);
+                yield return new WaitForSeconds(timeIteration);
             }
 
             awaiter.End();

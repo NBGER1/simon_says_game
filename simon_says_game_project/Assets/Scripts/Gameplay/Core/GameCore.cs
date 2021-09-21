@@ -92,22 +92,10 @@ namespace Gameplay.Core
         private void StartGameSequence()
         {
             _lastGameSequence = _rivalView.GetNewGameSequence();
-            if (!_rivalView.IsAlive())
-            {
-                OnRivalDefeat();
-                return;
-            }
-
-            if (!_playerView.IsAlive())
-            {
-                OnPlayerDeath();
-                return;
-            }
-
             StartRivalTurn();
             Queue<int> copyQueue = new Queue<int>(_lastGameSequence);
-            var totalCount = _lastGameSequence.Count;
-            for (var i = 0; i < totalCount; i++)
+            var totalCount = _lastGameSequence.Count + 1;
+            for (var i = 1; i < totalCount; i++)
             {
                 var index = copyQueue.Dequeue();
                 GameplayServices.CoroutineService
@@ -142,6 +130,7 @@ namespace Gameplay.Core
         {
             _playerModel.SetRivalIndex(-1);
             _playerModel.ResetScore();
+            _playerModel.ResetLives();
         }
 
         private void OnPlayerDeath()
@@ -150,7 +139,14 @@ namespace Gameplay.Core
             var eventParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eventParams);
             ResetPlayer();
-            Instantiate(_popupElements.LosePopup, _canvas.transform);
+            if (!_playerView.hasLives())
+            {
+                Instantiate(_popupElements.LosePopup, _canvas.transform);
+            }
+            else
+            {
+                ResetStage();
+            }
         }
 
         public void ResetStage()
@@ -181,26 +177,6 @@ namespace Gameplay.Core
         {
             var eventParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTurn, eventParams);
-            /**
-             *          GameplayServices.CoroutineService
-                 .WaitFor(_gameModel.GameTimer)
-                 .OnStart(() =>
-                 {
-                     var eventParams = EventParams.Empty;
-                     GameplayServices.EventBus.Publish(EventTypes.OnPlayerTurn, eventParams);
-                 })
-                 .OnProgress((value) =>
-                 {
-                     Debug.Log($"Progress is {value}");
-                     var eParams = new OnGameTimerValueChange(value);
-                     GameplayServices.EventBus.Publish(EventTypes.OnGameTimerValueChange, eParams);
-                 })
-                 .OnEnd(() =>
-                 {
-                     var eventParams = EventParams.Empty;
-                     GameplayServices.EventBus.Publish(EventTypes.OnRivalTurn, eventParams);
-                 });
-             */
         }
 
         private void StartRivalTurn()
@@ -239,6 +215,12 @@ namespace Gameplay.Core
             Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
             var eventParams = new OnDamageTaken(_rivalParams.Damage);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceFailure, eventParams);
+            if (!_playerView.hasHealth())
+            {
+                OnPlayerDeath();
+                return;
+            }
+
             DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
         }
 
@@ -260,6 +242,12 @@ namespace Gameplay.Core
             }
             else
             {
+                if (!_rivalView.IsAlive())
+                {
+                    OnRivalDefeat();
+                    return;
+                }
+
                 var eventParams = EventParams.Empty;
                 DelayedCallbacks(_gameModel.RuneSelectionDelay, null,
                     () => { GameplayServices.EventBus.Publish(EventTypes.OnRuneSelectionEnd, eventParams); });
