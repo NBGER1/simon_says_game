@@ -1,4 +1,7 @@
+using System;
 using Gameplay.Events;
+using Infrastructure;
+using Infrastructure.Database;
 using Infrastructure.Events;
 using Infrastructure.Services;
 using TMPro;
@@ -36,11 +39,25 @@ namespace Gameplay.Player
 
         #region Methods
 
+        private void Awake()
+        {
+            Database.LoadData();
+            var DB = PlayerData.Instance;
+            _health = DB.Health;
+            _lives = DB.Lives;
+            _score = DB.Score;
+            _bestScore = DB.BestScore;
+            _maxHealth = DB.MaxHealth;
+            _maxScore = DB.MaxScore;
+            _lastRivalIndex = DB.LastRivalIndex;
+        }
+
         public void AddHealth(float value)
         {
             _health = Mathf.Min(_health + value, _maxHealth);
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerAddHealth, eParams);
+            Database.SaveData();
         }
 
         public void RemoveHealth(float value)
@@ -73,6 +90,7 @@ namespace Gameplay.Player
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerNewLife, eventParams);
             }
         }
+
         public void ResetLives()
         {
             _lives = _maxLives;
@@ -111,6 +129,7 @@ namespace Gameplay.Player
         {
             _name = value;
         }
+
         #endregion
 
         #region Properties

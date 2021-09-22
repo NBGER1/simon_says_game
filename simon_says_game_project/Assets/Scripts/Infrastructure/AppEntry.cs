@@ -1,12 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Infrastructure.Services;
+﻿using Infrastructure.Services;
 using UnityEngine;
 
-public class AppEntry : MonoBehaviour
+namespace Infrastructure
 {
-    void Start()
+    public class AppEntry : MonoBehaviour
     {
-        GameplayServices.Initialize();
+        #region Fields
+
+        #endregion
+
+        #region Methods
+
+        private void Awake()
+        {
+            
+        }
+
+        void Start()
+        {
+            GameplayServices.Initialize();
+        }
+
+        #endregion
     }
 }

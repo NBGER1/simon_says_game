@@ -1,4 +1,5 @@
 using Gameplay.Core;
+using Infrastructure.Database;
 using Infrastructure.Managers;
 using Infrastructure.Services.Coroutines;
 using UnityEngine;
@@ -31,7 +32,6 @@ namespace Infrastructure.Services
 
         public static EventBus EventBus => _eventBus;
         public static ICoroutineService CoroutineService => _coroutineService;
-
         #endregion
     }
 }

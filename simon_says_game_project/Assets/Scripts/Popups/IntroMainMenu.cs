@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Gameplay.Player;
+using Infrastructure.Database;
 using Infrastructure.Managers;
 using TMPro;
 using UnityEngine;
@@ -40,6 +41,7 @@ namespace Popups
 
         private void Awake()
         {
+            Database.LoadData();
             _playerNames = InitializePlayerNames();
         }
 
@@ -94,7 +96,7 @@ namespace Popups
         private string GetPlayerName()
         {
             var randomIndex = Random.Range(0, _playerNames.Length);
-           return _playerNames[randomIndex];
+            return _playerNames[randomIndex];
         }
 
         public void ResetHero()
