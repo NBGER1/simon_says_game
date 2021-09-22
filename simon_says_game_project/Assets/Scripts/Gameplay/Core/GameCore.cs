@@ -140,10 +140,8 @@ namespace Gameplay.Core
         private void OnRivalDefeat(EventParams obj)
         {
             _playerModel.AddScore(_rivalParams.Score);
-            GameplayServices.CoroutineService
-                .WaitFor(2)
-                .OnStart(SetNewRival)
-                .OnEnd(StartNewRound);
+            SetNewRival();
+            StartNewRound();
         }
 
         private void OnPlayerDeath(EventParams obj)
