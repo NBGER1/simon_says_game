@@ -9,7 +9,9 @@ namespace Infrastructure.Services.Coroutines
         #region Methods
 
         Coroutine RunCoroutine(IEnumerator coroutine);
+        void EndCoroutine(IEnumerator coroutine);
         IAwaiter WaitFor(float delay);
+        void StopAll();
 
         #endregion
     }

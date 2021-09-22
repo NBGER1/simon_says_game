@@ -1,3 +1,4 @@
+using System;
 using Gameplay.Events;
 using Gameplay.HealthBar;
 using Infrastructure.Abstracts;
@@ -36,6 +37,12 @@ namespace Infrastructure.Managers
         protected override UIManager GetInstance()
         {
             return this;
+        }
+
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnGameTimerValueChange, OnGameTimerValueChange);
+
         }
 
         #endregion

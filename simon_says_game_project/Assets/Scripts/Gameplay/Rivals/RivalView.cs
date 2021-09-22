@@ -57,12 +57,6 @@ namespace Gameplay.Rivals
             GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
         }
 
-        private void UnsubscribeEvents()
-        {
-            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
-            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn, OnRivalTurn);
-            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
-        }
 
         private void SubscribeToEvents()
         {
@@ -144,6 +138,13 @@ namespace Gameplay.Rivals
         public void PlayDefeatAudio()
         {
             _audioSource.PlayOneShot(_rivalModel.DefeatAudio);
+        }
+
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
         }
 
         #endregion

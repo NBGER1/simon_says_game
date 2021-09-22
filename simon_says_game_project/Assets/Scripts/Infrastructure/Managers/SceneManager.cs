@@ -1,3 +1,4 @@
+using Infrastructure.Services;
 using UnityEngine;
 
 namespace Infrastructure.Managers
@@ -18,6 +19,7 @@ namespace Infrastructure.Managers
 
         public static void MoveToMainMenuScene()
         {
+            GameplayServices.CoroutineService.StopAll();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Intro");
         }
 

@@ -1,3 +1,4 @@
+using System;
 using Gameplay.Core;
 using Gameplay.Rune;
 using Infrastructure.Events;
@@ -27,6 +28,11 @@ namespace Gameplay.RuneObject
         #endregion
 
         #region Methods
+
+        private void Awake()
+        {
+            _button.interactable = false;
+        }
 
         public void Start()
         {
@@ -96,6 +102,14 @@ namespace Gameplay.RuneObject
         public void PlayAudio()
         {
             _audioSource.Play();
+        }
+
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRuneSelection, OnRuneSelection);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRuneSelectionEnd, OnRuneSelectionEnd);
         }
 
         #endregion

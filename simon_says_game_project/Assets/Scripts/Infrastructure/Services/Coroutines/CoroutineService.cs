@@ -18,6 +18,10 @@ namespace Infrastructure.Services.Coroutines
             return StartCoroutine(coroutine);
         }
 
+        public void EndCoroutine(IEnumerator coroutine)
+        {
+            StopCoroutine(coroutine);
+        }
         public IAwaiter WaitFor(float delay)
         {
             var awaiter = new Awaiter();
@@ -25,6 +29,12 @@ namespace Infrastructure.Services.Coroutines
             RunCoroutine(WaitForInternal(delay, awaiter));
             return awaiter;
         }
+
+        public void StopAll()
+        {
+            StopAllCoroutines();
+        }
+
 
         private IEnumerator WaitForInternal(float delay, IAwaiter awaiter)
         {

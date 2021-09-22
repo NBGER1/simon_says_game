@@ -245,6 +245,20 @@ namespace Gameplay.Core
             return this;
         }
 
+        public void ReturnToMainMenu()
+        {
+            SceneManager.MoveToMainMenuScene();
+        }
+
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalDefeat, OnRivalDefeat);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerReady, StartNewRound);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalReady, StartNewRound);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerNewLife, ResetStage);
+        }
+
         #endregion
 
         #region Properties

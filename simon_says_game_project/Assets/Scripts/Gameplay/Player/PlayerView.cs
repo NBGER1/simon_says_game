@@ -1,3 +1,4 @@
+using System;
 using Gameplay.Events;
 using Infrastructure.Events;
 using Infrastructure.Services;
@@ -108,6 +109,15 @@ namespace Gameplay.Player
         {
             var eParams = obj as OnPlayerScoreChange;
             _score.text = eParams.Score.ToString();
+        }
+
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerScoreChange, OnPlayerScoreChange);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerZeroHealth, OnPlayerZeroHealth);
         }
 
         #endregion

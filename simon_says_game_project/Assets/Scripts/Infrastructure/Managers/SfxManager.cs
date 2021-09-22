@@ -1,3 +1,4 @@
+using System;
 using Gameplay.Events;
 using Infrastructure.Abstracts;
 using Infrastructure.Events;
@@ -53,6 +54,15 @@ namespace Infrastructure.Managers
         protected override SfxManager GetInstance()
         {
             return this;
+        }
+
+        private void OnDestroy()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalDefeat, OnRivalDefeat);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnGameOverWin, OnGameOverWin);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTakeDamage, OnDamageTaken);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTakeDamage, OnDamageTaken);
         }
 
         #endregion
