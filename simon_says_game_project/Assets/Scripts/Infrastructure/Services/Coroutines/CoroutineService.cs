@@ -8,11 +8,6 @@ namespace Infrastructure.Services.Coroutines
     {
         #region Methods
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         public Coroutine RunCoroutine(IEnumerator coroutine)
         {
             return StartCoroutine(coroutine);

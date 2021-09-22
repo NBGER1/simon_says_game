@@ -2130,6 +2130,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 112799420509343547, guid: d050a68ac129f1c4d929cf6809562388,
         type: 3}
+      propertyPath: _musicBox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 112799420509343547, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: _musicBoxPrefab
+      value: 
+      objectReference: {fileID: 3304499096568608018, guid: 1e3beea4ca65b4d41919a0e3ff2bbc8e,
+        type: 3}
+    - target: {fileID: 112799420509343547, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
       propertyPath: _playerNamesJson
       value: 
       objectReference: {fileID: 4900000, guid: 0b7cd5127d8ece6408af126ac951caf8, type: 3}
@@ -2243,6 +2254,11 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2178580599725986807, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 245e22344d3c35444b91b5a26dca829e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d050a68ac129f1c4d929cf6809562388, type: 3}
 --- !u!224 &3448135663987871268

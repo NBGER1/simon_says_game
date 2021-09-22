@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Gameplay.Player;
+using Infrastructure;
 using Infrastructure.Database;
 using Infrastructure.Managers;
 using TMPro;
@@ -20,6 +21,7 @@ namespace Popups
         [SerializeField] private TextMeshProUGUI _bestScoreValueText;
         [SerializeField] private TextMeshProUGUI _playerNameText;
         [SerializeField] private RawImage _playerImage;
+        [SerializeField] private GameObject _musicBoxPrefab;
 
         #endregion
 
@@ -35,6 +37,7 @@ namespace Popups
         #region Fields
 
         private string[] _playerNames;
+        private GameObject _musicBox;
 
         #endregion
 
@@ -44,6 +47,11 @@ namespace Popups
         {
             Database.LoadData();
             _playerNames = InitializePlayerNames();
+            _musicBox = GameObject.FindWithTag("Music");
+            if (_musicBox == null)
+            {
+                _musicBox = Instantiate(_musicBoxPrefab);
+            }
         }
 
         private void Start()
