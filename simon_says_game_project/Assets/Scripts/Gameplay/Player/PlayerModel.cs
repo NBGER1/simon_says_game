@@ -14,22 +14,7 @@ namespace Gameplay.Player
     {
         #region Editor
 
-        [SerializeField] [Range(1f, 100f)] private float _maxHealth;
-        [SerializeField] [Range(1, 3)] private int _maxLives;
-        [SerializeField] private int _lives;
-        [SerializeField] [Range(0, 10000)] private int _maxScore;
         [SerializeField] private Texture2D _image;
-        [SerializeField] private string _name;
-        [SerializeField] private float _health;
-        [SerializeField] private int _lastRivalIndex = -1;
-        [SerializeField] private int _score;
-        [SerializeField] private int _bestScore = 0;
-
-        #endregion
-
-        #region Consts
-
-        private const string DEFAULT_PLAYER_NAME = "Player";
 
         #endregion
 
@@ -42,31 +27,24 @@ namespace Gameplay.Player
         private void Awake()
         {
             Database.LoadData();
-            var DB = PlayerData.Instance;
-            _health = DB.Health;
-            _lives = DB.Lives;
-            _score = DB.Score;
-            _bestScore = DB.BestScore;
-            _maxHealth = DB.MaxHealth;
-            _maxScore = DB.MaxScore;
-            _lastRivalIndex = DB.LastRivalIndex;
         }
 
-        public void AddHealth(float value)
+        public void ResetHealth()
         {
-            _health = Mathf.Min(_health + value, _maxHealth);
-            var eParams = new OnHealthChange(_health);
+            PlayerData.Instance.Health = PlayerData.Instance.MaxHealth;
+            var eParams = new OnHealthChange(PlayerData.Instance.MaxHealth);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerAddHealth, eParams);
             Database.SaveData();
         }
 
-        public void RemoveHealth(float value)
+        public void ReduceHealth(float value)
         {
-            _health = Mathf.Max(_health - value, 0);
+            var newHealth = PlayerData.Instance.Health - value;
+            PlayerData.Instance.Health = newHealth;
             var emptyEventParams = EventParams.Empty;
-            var eParams = new OnHealthChange(_health);
+            var eParams = new OnHealthChange(newHealth);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
-            if (_health == 0)
+            if (newHealth == 0)
             {
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerZeroHealth, emptyEventParams);
             }
@@ -76,10 +54,11 @@ namespace Gameplay.Player
             }
         }
 
-        public void LoseLife()
+        public void ReduceLives(int value)
         {
-            _lives = Mathf.Max(_lives - 1, 0);
-            if (_lives == 0)
+            var newLives = PlayerData.Instance.Lives - value;
+            PlayerData.Instance.Lives = newLives;
+            if (newLives == 0)
             {
                 var eParams = EventParams.Empty;
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerDeath, eParams);
@@ -89,61 +68,67 @@ namespace Gameplay.Player
                 var eventParams = EventParams.Empty;
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerNewLife, eventParams);
             }
+
+            Database.SaveData();
         }
 
         public void ResetLives()
         {
-            _lives = _maxLives;
+            PlayerData.Instance.Lives = PlayerData.Instance.MaxLives;
+            Database.SaveData();
         }
 
         public void AddScore(int value)
         {
-            _score = Mathf.Min(_score + value, _maxScore);
+            PlayerData.Instance.Score = value;
             SetBestScore();
-            var eParams = new OnPlayerScoreChange(_score);
+            var eParams = new OnPlayerScoreChange(value);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerScoreChange, eParams);
+            Database.SaveData();
         }
 
         public void ResetScore()
         {
+            PlayerData.Instance.Score = 0;
             SetBestScore();
-            _score = 0;
-            var eParams = new OnPlayerScoreChange(_score);
+            var eParams = new OnPlayerScoreChange(0);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerScoreChange, eParams);
+            Database.SaveData();
         }
 
         private void SetBestScore()
         {
-            if (_score > _bestScore)
+            if (PlayerData.Instance.Score > PlayerData.Instance.BestScore)
             {
-                _bestScore = _score;
+                PlayerData.Instance.BestScore = PlayerData.Instance.Score;
+                Database.SaveData();
             }
         }
 
         public void SetRivalIndex(int value)
         {
-            _lastRivalIndex = value;
+            PlayerData.Instance.LastRivalIndex = value;
+            Database.SaveData();
         }
 
         public void SetName(string value)
         {
-            _name = value;
+            PlayerData.Instance.Name = value;
+            Database.SaveData();
         }
 
         #endregion
 
         #region Properties
 
-        public string DefaultPlayerName => DEFAULT_PLAYER_NAME;
         public Texture2D Image => _image;
-        public float Health => _health;
-        public int MaxLives => _maxLives;
-        public int Lives => _lives;
-        public float MaxHealth => _maxHealth;
-        public int LastRivalIndex => _lastRivalIndex;
-        public int Score => _score;
-        public int BestScore => _bestScore;
-        public string Name => _name;
+        public int MaxLives => PlayerData.Instance.MaxLives;
+        public int Lives => PlayerData.Instance.Lives;
+        public float MaxHealth => PlayerData.Instance.MaxHealth;
+        public int LastRivalIndex => PlayerData.Instance.LastRivalIndex;
+        public int Score => PlayerData.Instance.Score;
+        public int BestScore => PlayerData.Instance.BestScore;
+        public string Name => PlayerData.Instance.Name;
 
         #endregion
     }

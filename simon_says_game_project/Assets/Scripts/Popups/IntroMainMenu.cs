@@ -28,6 +28,7 @@ namespace Popups
         const string CONTINUE_PLAY_BUTTON_TEXT = "CONTINUE";
         const string NEW_PLAY_BUTTON_TEXT = "PLAY";
         const string PLAYER_NAMES_PATH = @"Assets/Scripts/Gameplay/playerNames.txt";
+        private const string DEFAULT_PLAYER_NAME = "Player";
 
         #endregion
 
@@ -58,7 +59,7 @@ namespace Popups
 
             _bestScoreValueText.text = _playerModel.BestScore.ToString();
 
-            if (_playerModel.Name.Equals(_playerModel.DefaultPlayerName))
+            if (_playerModel.Name.Equals(DEFAULT_PLAYER_NAME))
             {
                 ResetHero();
             }

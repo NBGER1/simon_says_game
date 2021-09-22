@@ -27,8 +27,8 @@ namespace Infrastructure.Database
         public static void LoadData()
         {
             var jsonContent = File.ReadAllText(LOCAL_DATA_PATH);
-            var data = JsonUtility.FromJson<PlayerDBFormat>(jsonContent);
-            PlayerDBFormat.Instance.Set(data);
+            var data = JsonUtility.FromJson<PlayerData>(jsonContent);
+            PlayerData.Instance.Set(data);
         }
 
         #endregion

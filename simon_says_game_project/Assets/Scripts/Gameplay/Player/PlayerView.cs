@@ -36,7 +36,7 @@ namespace Gameplay.Player
             _name.text = _playerModel.Name;
             _score.text = _playerModel.Score.ToString();
             _turnIndicator.SetActive(false);
-            _playerModel.AddHealth(_playerModel.MaxHealth);
+            _playerModel.ResetHealth();
             SetLivesSprites();
             SubscribeToEvents();
         }
@@ -67,7 +67,7 @@ namespace Gameplay.Player
 
         public void PrepareForNewRound()
         {
-            _playerModel.AddHealth(_playerModel.MaxHealth);
+            _playerModel.ResetHealth();
             _score.text = _playerModel.Score.ToString();
             _turnIndicator.SetActive(false);
             SetLivesSprites();
@@ -75,14 +75,14 @@ namespace Gameplay.Player
 
         private void OnPlayerZeroHealth(EventParams obj)
         {
-            _playerModel.LoseLife();
+            _playerModel.ReduceLives(1);
         }
 
 
         private void TakeDamage(EventParams obj)
         {
             var eParams = obj as OnDamageTaken;
-            _playerModel.RemoveHealth(eParams.Damage);
+            _playerModel.ReduceHealth(eParams.Damage);
             TakeDamageEffect();
         }
 

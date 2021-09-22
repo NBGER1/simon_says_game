@@ -8,6 +8,7 @@ namespace Infrastructure.Database
     public class PlayerData
     {
         private static readonly PlayerData instance = new PlayerData();
+
         #region Fields
 
         [SerializeField] private float _maxHealth;
@@ -30,7 +31,7 @@ namespace Infrastructure.Database
             get { return instance; }
         }
 
-      
+
         public void Set(PlayerData data)
         {
             _maxHealth = data._maxHealth;
@@ -46,18 +47,54 @@ namespace Infrastructure.Database
         }
 
         #endregion
+
         #region Properties
 
-        public string Image => _image;
-        public float Health => _health;
+        public string Image
+        {
+            get => _image;
+            set => _image = value;
+        }
+
+        public float Health
+        {
+            get => _health;
+            set => _health = Mathf.Max(_health + value, _maxHealth);
+        }
+
         public int MaxLives => _maxLives;
         public int MaxScore => _maxScore;
-        public int Lives => _lives;
         public float MaxHealth => _maxHealth;
-        public int LastRivalIndex => _lastRivalIndex;
-        public int Score => _score;
-        public int BestScore => _bestScore;
-        public string Name => _name;
+
+        public int Lives
+        {
+            get { return _lives; }
+            set => _lives = value >= 0 && value <= _maxLives ? value : _lives;
+        }
+
+        public int LastRivalIndex
+        {
+            get => _lastRivalIndex;
+            set => _lastRivalIndex = value;
+        }
+
+        public int Score
+        {
+            get => _score;
+            set => _score = value >= 0 && value <= _maxScore ? value : _score;
+        }
+
+        public int BestScore
+        {
+            get => _bestScore;
+            set => _bestScore = value >= 0 && value <= _maxScore ? value : _bestScore;
+        }
+
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
 
         #endregion
     }
