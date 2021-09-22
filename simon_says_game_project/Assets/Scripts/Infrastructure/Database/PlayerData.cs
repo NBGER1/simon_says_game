@@ -1,5 +1,7 @@
 using System;
 using Infrastructure.Abstracts;
+using Infrastructure.Events;
+using Infrastructure.Services;
 using UnityEngine;
 
 namespace Infrastructure.Database
@@ -38,6 +40,10 @@ namespace Infrastructure.Database
             _lastRivalIndex = data._lastRivalIndex;
             _score = data._score;
             _bestScore = data._bestScore;
+
+            var eParams = EventParams.Empty;
+            Debug.Log("OnDatabaseLoad");
+            GameplayServices.EventBus.Publish(EventTypes.OnDatabaseLoad, eParams);
         }
 
         #endregion

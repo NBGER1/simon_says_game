@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -11,11 +12,13 @@ namespace Infrastructure.Database
 
         #endregion
 
-        #region Fields
+        #region Consts
 
+       
         #endregion
 
         #region Functions
+
 
         public static void SaveData()
         {

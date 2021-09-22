@@ -39,8 +39,10 @@ namespace Infrastructure.Services
 
         public void Publish(EventTypes eventType, EventParams eventParams)
         {
+           
             if (!_subscribers.ContainsKey(eventType))
             {
+                return;
                 throw new NullReferenceException($"{eventType} event can't be published");
             }
 

@@ -21,7 +21,7 @@ namespace Gameplay.Player
 
         #endregion
 
-        #region Fields
+        #region Consts
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace Gameplay.Player
 
         private void Awake()
         {
-            Database.LoadData();
+            Debug.Log("Alive playermodel");
         }
 
         public void ResetHealth()
@@ -46,7 +46,7 @@ namespace Gameplay.Player
             PlayerData.Instance.Health = newHealth;
             var emptyEventParams = EventParams.Empty;
             var eParams = new OnHealthChange(newHealth);
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
+            GameplayServices.EventBus?.Publish(EventTypes.OnPlayerTakeDamage, eParams);
             if (PlayerData.Instance.Health == 0)
             {
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerZeroHealth, emptyEventParams);
@@ -92,8 +92,8 @@ namespace Gameplay.Player
 
         public void ResetScore()
         {
-            PlayerData.Instance.Score = 0;
             SetBestScore();
+            PlayerData.Instance.Score = 0;
             var eParams = new OnPlayerScoreChange(0);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerScoreChange, eParams);
             Database.SaveData();

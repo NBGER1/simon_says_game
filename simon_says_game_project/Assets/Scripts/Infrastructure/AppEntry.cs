@@ -11,12 +11,7 @@ namespace Infrastructure
 
         #region Methods
 
-        private void Awake()
-        {
-            
-        }
-
-        void Start()
+        void Awake()
         {
             GameplayServices.Initialize();
         }

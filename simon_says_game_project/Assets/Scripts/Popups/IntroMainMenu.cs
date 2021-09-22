@@ -4,7 +4,9 @@ using System.IO;
 using Gameplay.Player;
 using Infrastructure;
 using Infrastructure.Database;
+using Infrastructure.Events;
 using Infrastructure.Managers;
+using Infrastructure.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,7 +47,9 @@ namespace Popups
 
         private void Awake()
         {
+            GameplayServices.EventBus.Subscribe(EventTypes.OnDatabaseLoad, OnDatabaseLoad);
             Database.LoadData();
+
             _playerNames = InitializePlayerNames();
             _musicBox = GameObject.FindWithTag("Music");
             if (_musicBox == null)
@@ -54,8 +58,9 @@ namespace Popups
             }
         }
 
-        private void Start()
+        private void OnDatabaseLoad(EventParams obj)
         {
+            Debug.Log("OnDatabaseLoaded");
             if (_playerModel.LastRivalIndex > -1)
             {
                 _playButtonText.text = CONTINUE_PLAY_BUTTON_TEXT;

@@ -3,6 +3,7 @@ using Infrastructure.Database;
 using Infrastructure.Managers;
 using Infrastructure.Services.Coroutines;
 using UnityEngine;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Infrastructure.Services
 {
@@ -15,6 +16,14 @@ namespace Infrastructure.Services
 
         #endregion
 
+        #region Consts
+
+        private const string GAME_SCENE_NAME = "Game";
+        private const string PRE_INTRO_SCENE_NAME = "PreIntro";
+        private const string INTRO_SCENE = "Intro";
+
+        #endregion
+
         #region Methods
 
         public static void Initialize()
@@ -22,8 +31,16 @@ namespace Infrastructure.Services
             _eventBus = new EventBus();
             var csgo = new GameObject("CoroutineService");
             _coroutineService = csgo.AddComponent<CoroutineService>();
-            SfxManager.Instance.Initialize();
-            GameCore.Instance.Initialize();
+            if (SceneManager.GetActiveScene().name.Equals(GAME_SCENE_NAME))
+            {
+                SfxManager.Instance.Initialize();
+                GameCore.Instance.Initialize();
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals(PRE_INTRO_SCENE_NAME))
+            {
+                SceneManager.LoadScene(INTRO_SCENE);
+            }
         }
 
         #endregion
@@ -32,6 +49,7 @@ namespace Infrastructure.Services
 
         public static EventBus EventBus => _eventBus;
         public static ICoroutineService CoroutineService => _coroutineService;
+
         #endregion
     }
 }

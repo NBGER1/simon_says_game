@@ -21,5 +21,7 @@ namespace Infrastructure.Events
         OnPlayerReady,
         OnRivalReady,
         OnPlayerNewLife,
+        
+        OnDatabaseLoad,
     }
 }
