@@ -44,20 +44,28 @@ namespace Gameplay.Core
             InitializePlayer();
             InitializeRival();
 
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalDefeat, OnRivalDefeat);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerReady, StartNewRound);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalReady, StartNewRound);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerNewLife, ResetStage);
+
+
             GameplayServices.CoroutineService
                 .WaitFor(1.5f)
-                .OnEnd(StartGameSequence);
+                .OnEnd(StartNewRound);
         }
+
 
         private void InitializeRival()
         {
-            var rivalIndex = -1;
             if (_playerModel.LastRivalIndex > -1)
             {
                 _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.LastRivalIndex);
             }
             else
             {
+                int rivalIndex;
                 (_rivalParams, rivalIndex) = RivalManager.Instance.GetRandomRival();
                 _playerModel.SetRivalIndex(rivalIndex);
             }
@@ -67,7 +75,6 @@ namespace Gameplay.Core
 
         private void InitializePlayer()
         {
-            _playerModel.AddHealth(_playerModel.MaxHealth);
             _playerView.Initialize(_playerModel);
         }
 
@@ -89,8 +96,14 @@ namespace Gameplay.Core
             }
         }
 
-        private void StartGameSequence()
+        private void StartNewRound(EventParams obj)
         {
+            StartNewRound();
+        }
+
+        private void StartNewRound()
+        {
+            _lastGameSequence = new Queue<int>();
             _lastGameSequence = _rivalView.GetNewGameSequence();
             StartRivalTurn();
             Queue<int> copyQueue = new Queue<int>(_lastGameSequence);
@@ -115,60 +128,38 @@ namespace Gameplay.Core
                 .OnEnd(StartPlayerTurn);
         }
 
-        private void OnRivalDefeat()
+        private void OnRivalDefeat(EventParams obj)
         {
-            Debug.Log("RIVAL DEFEATED!");
             _playerModel.AddScore(_rivalParams.Score);
-            var eventParams = EventParams.Empty;
-            GameplayServices.EventBus.Publish(EventTypes.OnRivalDefeat, eventParams);
             GameplayServices.CoroutineService
                 .WaitFor(2)
-                .OnEnd(GetNextRival);
+                .OnEnd(ResetStage);
         }
 
         public void ResetPlayer()
         {
-            _playerModel.SetRivalIndex(-1);
             _playerModel.ResetScore();
+            _playerModel.SetRivalIndex(-1);
             _playerModel.ResetLives();
         }
 
-        private void OnPlayerDeath()
+        private void OnPlayerDeath(EventParams obj)
         {
-            Debug.Log("PLAYER DEFEATED!");
-            var eventParams = EventParams.Empty;
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eventParams);
+            Instantiate(_popupElements.LosePopup, _canvas.transform);
             ResetPlayer();
-            if (!_playerView.hasLives())
-            {
-                Instantiate(_popupElements.LosePopup, _canvas.transform);
-            }
-            else
-            {
-                ResetStage();
-            }
         }
-
+        
         public void ResetStage()
         {
-            InitializeRival();
-            InitializePlayer();
+            _rivalView.PrepareForNewRound();
+            _playerView.PrepareForNewRound();
 
             GameplayServices.CoroutineService
                 .WaitFor(0.5f)
-                .OnEnd(() => { StartGameSequence(); });
+                .OnEnd(StartNewRound);
         }
 
-        private void OnGameOver()
-        {
-            ResetPlayer();
-            var eventParams = EventParams.Empty;
-            GameplayServices.EventBus.Publish(EventTypes.OnGameOverWin, eventParams);
-            Instantiate(_popupElements.WinPopup, _canvas.transform);
-        }
-
-
-        private void GetNextRival()
+        public void ResetStage(EventParams obj)
         {
             ResetStage();
         }
@@ -202,7 +193,7 @@ namespace Gameplay.Core
             var nextIndex = _lastGameSequence.Dequeue();
             if (index != nextIndex)
             {
-                OnPlayerMiss(nextIndex, index);
+                OnPlayerMiss();
             }
             else
             {
@@ -210,18 +201,11 @@ namespace Gameplay.Core
             }
         }
 
-        private void OnPlayerMiss(int correctIndex, int badIndex)
+        private void OnPlayerMiss()
         {
-            Debug.Log($"You missed with {badIndex}! The correct index was {correctIndex}");
+            Debug.Log($"OnPlayerMiss!!!!!");
             var eventParams = new OnDamageTaken(_rivalParams.Damage);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceFailure, eventParams);
-            if (!_playerView.hasHealth())
-            {
-                OnPlayerDeath();
-                return;
-            }
-
-            DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
         }
 
         private void DelayedCallbacks(float delay, Action startCallback, Action endCallback)
@@ -238,16 +222,9 @@ namespace Gameplay.Core
             {
                 var eventParams = EventParams.Empty;
                 GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceSuccess, eventParams);
-                DelayedCallbacks(3, StartRivalTurn, StartGameSequence);
             }
             else
             {
-                if (!_rivalView.IsAlive())
-                {
-                    OnRivalDefeat();
-                    return;
-                }
-
                 var eventParams = EventParams.Empty;
                 DelayedCallbacks(_gameModel.RuneSelectionDelay, null,
                     () => { GameplayServices.EventBus.Publish(EventTypes.OnRuneSelectionEnd, eventParams); });

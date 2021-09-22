@@ -1,5 +1,6 @@
 ﻿using Gameplay.Core;
 using Infrastructure.Managers;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SceneManager = Infrastructure.Managers.SceneManager;
@@ -10,7 +11,7 @@ public class LosePopup : MonoBehaviour
 
     public void Continue()
     {
-        GameCore.Instance.ResetStage();
+        SceneManager.MoveToMainMenuScene();
         Destroy(gameObject);
     }
 

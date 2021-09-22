@@ -40,13 +40,32 @@ namespace Gameplay.Player
         public void RemoveHealth(float value)
         {
             _health = Mathf.Max(_health - value, 0);
+            var emptyEventParams = EventParams.Empty;
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
+            if (_health == 0)
+            {
+                GameplayServices.EventBus.Publish(EventTypes.OnPlayerZeroHealth, emptyEventParams);
+            }
+            else
+            {
+                GameplayServices.EventBus.Publish(EventTypes.OnPlayerReady, emptyEventParams);
+            }
         }
 
         public void LoseLife()
         {
             _lives = Mathf.Max(_lives - 1, 0);
+            if (_lives == 0)
+            {
+                var eParams = EventParams.Empty;
+                GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eParams);
+            }
+            else
+            {
+                var eventParams = EventParams.Empty;
+                GameplayServices.EventBus.Publish(EventTypes.OnPlayerNewLife, eventParams);
+            }
         }
 
         public void ResetLives()

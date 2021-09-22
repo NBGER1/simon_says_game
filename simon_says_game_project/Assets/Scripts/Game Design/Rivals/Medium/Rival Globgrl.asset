@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Dark Knight
+  m_Name: Rival Globgrl
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: 6743fe143e7ce96429d04dc7f1982551, type: 3}
-  _name: Dark Knight
+  _image: {fileID: 2800000, guid: e1f2b5f16d9ca3e449094a93c9f520cd, type: 3}
+  _name: Globgrl
   _health: 100
-  _selfDamage: 15
-  _score: 30
-  _minGameSequenceLength: 5
-  _maxGameSequenceLength: 7
-  _damage: 50
-  _isLegendary: 1
-  _introAudio: {fileID: 8300000, guid: 9149ae3651e4d554ab203391586a36f0, type: 3}
+  _selfDamage: 50
+  _score: 5
+  _minGameSequenceLength: 4
+  _maxGameSequenceLength: 6
+  _damage: 10
+  _isLegendary: 0
+  _introAudio: {fileID: 8300000, guid: cf2ce96f493680d4b93b7c0be58838a8, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

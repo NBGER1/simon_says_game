@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Snake Brave
+  m_Name: Rival Hill Troll
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: dd0a0988d1553cd4cb5b263b6baa7934, type: 3}
-  _name: Snake Brave
+  _image: {fileID: 2800000, guid: bb6e3877d94d7b944ade5300f21ca1c2, type: 3}
+  _name: Hill Troll
   _health: 100
-  _selfDamage: 15
-  _score: 45
-  _minGameSequenceLength: 6
-  _maxGameSequenceLength: 12
-  _damage: 45
-  _isLegendary: 1
-  _introAudio: {fileID: 8300000, guid: 134134e08f1bd294a825bd4606a806fc, type: 3}
+  _selfDamage: 25
+  _score: 12
+  _minGameSequenceLength: 5
+  _maxGameSequenceLength: 7
+  _damage: 25
+  _isLegendary: 0
+  _introAudio: {fileID: 8300000, guid: 55f492eda86d3c641a31108a9a36f8b1, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

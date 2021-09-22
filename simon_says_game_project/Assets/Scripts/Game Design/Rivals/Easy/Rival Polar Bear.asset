@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Hill Troll
+  m_Name: Rival Polar Bear
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: bb6e3877d94d7b944ade5300f21ca1c2, type: 3}
-  _name: Hill Troll
+  _image: {fileID: 2800000, guid: 2ab59645d8612024fb162014f22eab3a, type: 3}
+  _name: Savage Polar Bear
   _health: 100
-  _selfDamage: 25
-  _score: 12
-  _minGameSequenceLength: 5
+  _selfDamage: 35
+  _score: 15
+  _minGameSequenceLength: 3
   _maxGameSequenceLength: 5
-  _damage: 25
+  _damage: 15
   _isLegendary: 0
-  _introAudio: {fileID: 8300000, guid: 55f492eda86d3c641a31108a9a36f8b1, type: 3}
+  _introAudio: {fileID: 8300000, guid: f13780a182fa1ab4d927a0dbe3db9f9d, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

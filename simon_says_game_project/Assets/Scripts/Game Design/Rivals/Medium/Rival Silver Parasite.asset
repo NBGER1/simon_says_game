@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Undead Swordsman
+  m_Name: Rival Silver Parasite
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: 758a4b240e227294f83c50d87688865d, type: 3}
-  _name: Undead Swordsman
+  _image: {fileID: 2800000, guid: f7f311db38cce5b44900f3e058fba1a2, type: 3}
+  _name: Silver Parasite
   _health: 100
-  _selfDamage: 25
-  _score: 15
+  _selfDamage: 90
+  _score: 25
   _minGameSequenceLength: 4
-  _maxGameSequenceLength: 7
-  _damage: 22
+  _maxGameSequenceLength: 6
+  _damage: 33
   _isLegendary: 0
-  _introAudio: {fileID: 8300000, guid: 5f1bed8c5cc8253418bb89ab1b76c812, type: 3}
+  _introAudio: {fileID: 8300000, guid: 8b6afca8bf48a12448584156e1ec246e, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

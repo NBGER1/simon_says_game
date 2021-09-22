@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Earth Golem
+  m_Name: Rival Chicken
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: 1c6d0a56a65c1e0499ab1891e688208f, type: 3}
-  _name: Earth Golem
+  _image: {fileID: 2800000, guid: f7870eb12550c5b499bae6557a5b5921, type: 3}
+  _name: Angry Chicken
   _health: 100
-  _selfDamage: 15
-  _score: 30
-  _minGameSequenceLength: 5
-  _maxGameSequenceLength: 6
-  _damage: 40
-  _introAudio: {fileID: 8300000, guid: d3bd02b02d3296543a96383c2090e0a5, type: 3}
+  _selfDamage: 100
+  _score: 10
+  _minGameSequenceLength: 3
+  _maxGameSequenceLength: 5
+  _damage: 25
+  _isLegendary: 0
+  _introAudio: {fileID: 8300000, guid: 5f1626e3d9565b24b927763e20f81810, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

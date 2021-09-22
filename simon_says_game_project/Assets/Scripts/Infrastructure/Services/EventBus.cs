@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Infrastructure.Events;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Infrastructure.Services
 {
@@ -22,7 +24,6 @@ namespace Infrastructure.Services
             {
                 _subscribers.Add(eventType, new List<Action<EventParams>>());
             }
-
             _subscribers[eventType].Add(callback);
         }
 
@@ -43,7 +44,7 @@ namespace Infrastructure.Services
                 throw new NullReferenceException($"{eventType} event can't be published");
             }
 
-            foreach (var action in _subscribers[eventType])
+            foreach (var action in _subscribers[eventType].ToList())
             {
                 action?.Invoke(eventParams);
             }

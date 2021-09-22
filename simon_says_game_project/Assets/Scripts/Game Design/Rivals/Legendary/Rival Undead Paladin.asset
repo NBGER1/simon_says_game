@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Goblin (Jeff)
+  m_Name: Rival Undead Paladin
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: 6c5a4f7eab9e81c43be583e69f8d2fb1, type: 3}
-  _name: Jeff
+  _image: {fileID: 2800000, guid: 205845cd3ac804f4495e312e75841051, type: 3}
+  _name: Undead Paladin
   _health: 100
-  _selfDamage: 37
-  _score: 7
-  _minGameSequenceLength: 3
-  _maxGameSequenceLength: 5
-  _damage: 20
-  _introAudio: {fileID: 8300000, guid: 11ad884ffb7d12f439b1d42722593203, type: 3}
+  _selfDamage: 10
+  _score: 80
+  _minGameSequenceLength: 6
+  _maxGameSequenceLength: 8
+  _damage: 90
+  _isLegendary: 1
+  _introAudio: {fileID: 8300000, guid: 262e7dca0dfb70943a3641c5d27dfe3b, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

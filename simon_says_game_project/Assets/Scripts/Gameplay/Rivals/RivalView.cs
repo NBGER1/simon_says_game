@@ -40,20 +40,49 @@ namespace Gameplay.Rivals
             _legendaryIndicator.SetActive(_rivalModel.IsLegendary);
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
-
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
+            SubscribeToEvents();
             PlayIntroAudio();
         }
 
+        public void PrepareForNewRound()
+        {
+            ResetHealth();
+        }
+        public void ResetHealth()
+        {
+            _health = _rivalModel.Health;
+            var eParams = new OnHealthChange(_health);
+            GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
+        }
+        private void UnsubscribeEvents()
+        {
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn,OnPlayerTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn,OnRivalTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceSuccess,TakeSelfDamage);
+        }
 
+        private void SubscribeToEvents()
+        {
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
+        }
         private void TakeSelfDamage(EventParams obj)
         {
             _health = Mathf.Max(_health - _rivalModel.SelfDamage, 0);
+            var emptyEventParams = EventParams.Empty;
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnRivalTakeDamage, eParams);
             TakeDamageEffect();
+            if (_health == 0)
+            {
+                GameplayServices.EventBus.Publish(EventTypes.OnRivalDefeat, emptyEventParams);
+            }
+            else
+            {
+                GameplayServices.EventBus.Publish(EventTypes.OnRivalReady, emptyEventParams);
+            }
+            
         }
 
         private void TakeDamageEffect()

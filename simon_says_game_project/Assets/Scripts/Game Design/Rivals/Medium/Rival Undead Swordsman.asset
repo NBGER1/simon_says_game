@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
-  m_Name: Rival Chicken
+  m_Name: Rival Undead Swordsman
   m_EditorClassIdentifier: 
-  _image: {fileID: 2800000, guid: f7870eb12550c5b499bae6557a5b5921, type: 3}
-  _name: Angry Chicken
+  _image: {fileID: 2800000, guid: 758a4b240e227294f83c50d87688865d, type: 3}
+  _name: Undead Swordsman
   _health: 100
-  _selfDamage: 45
-  _score: 10
-  _minGameSequenceLength: 2
-  _maxGameSequenceLength: 5
-  _damage: 25
-  _introAudio: {fileID: 8300000, guid: 5f1626e3d9565b24b927763e20f81810, type: 3}
+  _selfDamage: 25
+  _score: 15
+  _minGameSequenceLength: 4
+  _maxGameSequenceLength: 6
+  _damage: 22
+  _isLegendary: 0
+  _introAudio: {fileID: 8300000, guid: 5f1bed8c5cc8253418bb89ab1b76c812, type: 3}
   _attackAudio: {fileID: 0}
   _defeatAudio: {fileID: 0}

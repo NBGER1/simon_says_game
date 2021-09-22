@@ -36,6 +36,22 @@ namespace Gameplay.Player
             _name.text = _playerModel.Name;
             _score.text = _playerModel.Score.ToString();
             _turnIndicator.SetActive(false);
+            _playerModel.AddHealth(_playerModel.MaxHealth);
+            SetLivesSprites();
+            SubscribeToEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerScoreChange, OnPlayerScoreChange);
+            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerZeroHealth, OnPlayerZeroHealth);
+        }
+
+        private void SetLivesSprites()
+        {
             for (var i = 0; i < _playerModel.MaxLives; i++)
             {
                 if (i + 1 <= _playerModel.Lives)
@@ -47,15 +63,17 @@ namespace Gameplay.Player
                     _playerLivesSprites[i].SetActive(false);
                 }
             }
-
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceFailure, TakeDamage);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerScoreChange, OnPlayerScoreChange);
-            GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerDeath, OnPlayerDeath);
         }
 
-        private void OnPlayerDeath(EventParams obj)
+        public void PrepareForNewRound()
+        {
+            _playerModel.AddHealth(_playerModel.MaxHealth);
+            _score.text = _playerModel.Score.ToString();
+            _turnIndicator.SetActive(false);
+            SetLivesSprites();
+        }
+
+        private void OnPlayerZeroHealth(EventParams obj)
         {
             _playerModel.LoseLife();
         }
@@ -79,16 +97,6 @@ namespace Gameplay.Player
         private void OnRivalTurn(EventParams obj)
         {
             _turnIndicator.SetActive(false);
-        }
-
-        public bool hasLives()
-        {
-            return _playerModel.Lives > 0;
-        }
-
-        public bool hasHealth()
-        {
-            return _playerModel.Health > 0;
         }
 
         private void OnPlayerTurn(EventParams obj)
