@@ -15,7 +15,7 @@ MonoBehaviour:
   _image: {fileID: 2800000, guid: f7f311db38cce5b44900f3e058fba1a2, type: 3}
   _name: Silver Parasite
   _health: 100
-  _selfDamage: 90
+  _selfDamage: 30
   _score: 25
   _minGameSequenceLength: 4
   _maxGameSequenceLength: 6

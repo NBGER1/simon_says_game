@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366544d26e624ca2b43f34bd8b0a81d2, type: 3}
   m_Name: PlayerParams
   m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _maxLives: 3
-  _lives: 1
-  _maxScore: 1000
   _image: {fileID: 2800000, guid: d61a46ee68acc4f42a1abe848f259834, type: 3}
-  _name: Nidhoggr
-  _health: 100
-  _lastRivalIndex: 0
-  _score: 55
-  _bestScore: 35
+  _maxHealth: 100
+  _maxScore: 1000
+  _maxLives: 3

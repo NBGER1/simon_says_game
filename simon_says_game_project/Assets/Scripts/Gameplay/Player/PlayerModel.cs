@@ -15,6 +15,9 @@ namespace Gameplay.Player
         #region Editor
 
         [SerializeField] private Texture2D _image;
+        [SerializeField] [Range(0f, 100f)] private float _maxHealth;
+        [SerializeField] [Range(0f, 10000f)] private float _maxScore;
+        [SerializeField] [Range(0, 3)] private int _maxLives;
 
         #endregion
 
@@ -31,20 +34,20 @@ namespace Gameplay.Player
 
         public void ResetHealth()
         {
-            PlayerData.Instance.Health = PlayerData.Instance.MaxHealth;
-            var eParams = new OnHealthChange(PlayerData.Instance.MaxHealth);
+            PlayerData.Instance.Health = _maxHealth;
+            var eParams = new OnHealthChange(_maxHealth);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerAddHealth, eParams);
             Database.SaveData();
         }
 
         public void ReduceHealth(float value)
         {
-            var newHealth = PlayerData.Instance.Health - value;
+            var newHealth = Mathf.Max(PlayerData.Instance.Health - value, 0);
             PlayerData.Instance.Health = newHealth;
             var emptyEventParams = EventParams.Empty;
             var eParams = new OnHealthChange(newHealth);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
-            if (newHealth == 0)
+            if (PlayerData.Instance.Health == 0)
             {
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerZeroHealth, emptyEventParams);
             }
@@ -56,7 +59,7 @@ namespace Gameplay.Player
 
         public void ReduceLives(int value)
         {
-            var newLives = PlayerData.Instance.Lives - value;
+            var newLives = Mathf.Max(PlayerData.Instance.Lives - value, 0);
             PlayerData.Instance.Lives = newLives;
             if (newLives == 0)
             {
@@ -74,13 +77,13 @@ namespace Gameplay.Player
 
         public void ResetLives()
         {
-            PlayerData.Instance.Lives = PlayerData.Instance.MaxLives;
+            PlayerData.Instance.Lives = _maxLives;
             Database.SaveData();
         }
 
         public void AddScore(int value)
         {
-            PlayerData.Instance.Score = value;
+            PlayerData.Instance.Score = value >= 0 && value <= _maxScore ? value : PlayerData.Instance.Score;
             SetBestScore();
             var eParams = new OnPlayerScoreChange(value);
             GameplayServices.EventBus?.Publish(EventTypes.OnPlayerScoreChange, eParams);
@@ -117,14 +120,22 @@ namespace Gameplay.Player
             Database.SaveData();
         }
 
+        public void ResetPlayer()
+        {
+            ResetScore();
+            ResetHealth();
+            ResetLives();
+            SetRivalIndex(-1);
+        }
+
         #endregion
 
         #region Properties
 
         public Texture2D Image => _image;
-        public int MaxLives => PlayerData.Instance.MaxLives;
+        public int MaxLives => _maxLives;
         public int Lives => PlayerData.Instance.Lives;
-        public float MaxHealth => PlayerData.Instance.MaxHealth;
+        public float MaxHealth => _maxHealth;
         public int LastRivalIndex => PlayerData.Instance.LastRivalIndex;
         public int Score => PlayerData.Instance.Score;
         public int BestScore => PlayerData.Instance.BestScore;

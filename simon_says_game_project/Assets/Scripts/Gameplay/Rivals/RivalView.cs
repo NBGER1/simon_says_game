@@ -20,6 +20,7 @@ namespace Gameplay.Rivals
         [SerializeField] private GameObject _legendaryIndicator;
         [SerializeField] private Color32 _damageColor;
         [SerializeField] private Color32 _defaultColor;
+
         #endregion
 
         #region Fields
@@ -48,17 +49,19 @@ namespace Gameplay.Rivals
         {
             // ResetHealth(); --> This is too difficult for now
         }
+
         public void ResetHealth()
         {
             _health = _rivalModel.Health;
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
         }
+
         private void UnsubscribeEvents()
         {
-            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn,OnPlayerTurn);
-            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn,OnRivalTurn);
-            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceSuccess,TakeSelfDamage);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn, OnRivalTurn);
+            GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
         }
 
         private void SubscribeToEvents()
@@ -67,6 +70,7 @@ namespace Gameplay.Rivals
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
         }
+
         private void TakeSelfDamage(EventParams obj)
         {
             _health = Mathf.Max(_health - _rivalModel.SelfDamage, 0);
@@ -82,7 +86,6 @@ namespace Gameplay.Rivals
             {
                 GameplayServices.EventBus.Publish(EventTypes.OnRivalReady, emptyEventParams);
             }
-            
         }
 
         private void TakeDamageEffect()
@@ -92,6 +95,7 @@ namespace Gameplay.Rivals
                 .OnStart(() => { _image.color = _damageColor; })
                 .OnEnd(() => { _image.color = _defaultColor; });
         }
+
         private void OnRivalTurn(EventParams obj)
         {
             _turnIndicator.SetActive(true);

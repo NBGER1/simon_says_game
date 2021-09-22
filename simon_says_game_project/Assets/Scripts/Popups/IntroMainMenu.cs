@@ -102,10 +102,8 @@ namespace Popups
 
         public void ResetHero()
         {
+            _playerModel.ResetPlayer();
             _playerModel.SetName(GetPlayerName());
-            _playerModel.ResetScore();
-            _playerModel.ResetLives();
-            _playerModel.SetRivalIndex(-1);
             ShowPlayerInfo();
         }
 

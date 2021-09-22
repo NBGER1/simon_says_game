@@ -56,21 +56,30 @@ namespace Gameplay.Core
                 .OnEnd(StartNewRound);
         }
 
+        private void SetNewRival()
+        {
+            int rivalIndex;
+            (_rivalParams, rivalIndex) = RivalManager.Instance.GetRandomRival();
+            _playerModel.SetRivalIndex(rivalIndex);
+            _rivalView.Initialize(_rivalParams);
+        }
+
+        private void LoadRival()
+        {
+            _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.LastRivalIndex);
+            _rivalView.Initialize(_rivalParams);
+        }
 
         private void InitializeRival()
         {
             if (_playerModel.LastRivalIndex > -1)
             {
-                _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.LastRivalIndex);
+                LoadRival();
             }
             else
             {
-                int rivalIndex;
-                (_rivalParams, rivalIndex) = RivalManager.Instance.GetRandomRival();
-                _playerModel.SetRivalIndex(rivalIndex);
+                SetNewRival();
             }
-
-            _rivalView.Initialize(_rivalParams);
         }
 
         private void InitializePlayer()
@@ -133,7 +142,8 @@ namespace Gameplay.Core
             _playerModel.AddScore(_rivalParams.Score);
             GameplayServices.CoroutineService
                 .WaitFor(2)
-                .OnEnd(ResetStage);
+                .OnStart(SetNewRival)
+                .OnEnd(StartNewRound);
         }
 
         public void ResetPlayer()
@@ -148,7 +158,7 @@ namespace Gameplay.Core
             Instantiate(_popupElements.LosePopup, _canvas.transform);
             ResetPlayer();
         }
-        
+
         public void ResetStage()
         {
             _rivalView.PrepareForNewRound();
@@ -203,7 +213,6 @@ namespace Gameplay.Core
 
         private void OnPlayerMiss()
         {
-            Debug.Log($"OnPlayerMiss!!!!!");
             var eventParams = new OnDamageTaken(_rivalParams.Damage);
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerSequenceFailure, eventParams);
         }
