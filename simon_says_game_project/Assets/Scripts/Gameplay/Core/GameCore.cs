@@ -146,17 +146,10 @@ namespace Gameplay.Core
                 .OnEnd(StartNewRound);
         }
 
-        public void ResetPlayer()
-        {
-            _playerModel.ResetScore();
-            _playerModel.SetRivalIndex(-1);
-            _playerModel.ResetLives();
-        }
-
         private void OnPlayerDeath(EventParams obj)
         {
             Instantiate(_popupElements.LosePopup, _canvas.transform);
-            ResetPlayer();
+            _playerModel.ResetPlayer();
         }
 
         public void ResetStage()

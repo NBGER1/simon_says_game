@@ -42,7 +42,6 @@ namespace Infrastructure.Database
             _bestScore = data._bestScore;
 
             var eParams = EventParams.Empty;
-            Debug.Log("OnDatabaseLoad");
             GameplayServices.EventBus.Publish(EventTypes.OnDatabaseLoad, eParams);
         }
 

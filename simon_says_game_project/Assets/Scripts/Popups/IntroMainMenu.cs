@@ -31,8 +31,7 @@ namespace Popups
 
         const string CONTINUE_PLAY_BUTTON_TEXT = "CONTINUE";
         const string NEW_PLAY_BUTTON_TEXT = "PLAY";
-        const string PLAYER_NAMES_PATH = @"Assets/Scripts/Gameplay/playerNames.txt";
-        private const string DEFAULT_PLAYER_NAME = "Player";
+        private const string DEFAULT_PLAYER_NAME = "Syymon";
 
         #endregion
 
@@ -50,7 +49,6 @@ namespace Popups
             GameplayServices.EventBus.Subscribe(EventTypes.OnDatabaseLoad, OnDatabaseLoad);
             Database.LoadData();
 
-            _playerNames = InitializePlayerNames();
             _musicBox = GameObject.FindWithTag("Music");
             if (_musicBox == null)
             {
@@ -60,7 +58,6 @@ namespace Popups
 
         private void OnDatabaseLoad(EventParams obj)
         {
-            Debug.Log("OnDatabaseLoaded");
             if (_playerModel.LastRivalIndex > -1)
             {
                 _playButtonText.text = CONTINUE_PLAY_BUTTON_TEXT;
@@ -72,7 +69,7 @@ namespace Popups
 
             _bestScoreValueText.text = _playerModel.BestScore.ToString();
 
-            if (_playerModel.Name.Equals(DEFAULT_PLAYER_NAME))
+            if (!_playerModel.Name.Equals(DEFAULT_PLAYER_NAME))
             {
                 ResetHero();
             }
@@ -101,22 +98,11 @@ namespace Popups
             SceneManager.ExitApp();
         }
 
-        private string[] InitializePlayerNames()
-        {
-            var path = PLAYER_NAMES_PATH;
-            return File.ReadAllLines(path);
-        }
-
-        private string GetPlayerName()
-        {
-            var randomIndex = Random.Range(0, _playerNames.Length);
-            return _playerNames[randomIndex];
-        }
 
         public void ResetHero()
         {
             _playerModel.ResetPlayer();
-            _playerModel.SetName(GetPlayerName());
+            _playerModel.SetName(DEFAULT_PLAYER_NAME);
             ShowPlayerInfo();
         }
 

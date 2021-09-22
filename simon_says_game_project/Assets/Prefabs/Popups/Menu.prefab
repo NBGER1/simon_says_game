@@ -192,12 +192,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cf4fb005b13544ebb7d663ac2104e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerNamesJson: {fileID: 0}
   _playerModel: {fileID: 11400000, guid: 29664de355b08884ebf83b5a1df0a754, type: 2}
   _playButtonText: {fileID: 112799420899312565}
   _bestScoreValueText: {fileID: 5014713056864971592}
   _playerNameText: {fileID: 2132052871019635934}
   _playerImage: {fileID: 8806290871034708694}
+  _musicBoxPrefab: {fileID: 0}
 --- !u!1 &112799420636873944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: 96}
+  m_AnchoredPosition: {x: -2, y: 124}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5747646974554258345
@@ -1126,9 +1126,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Reset
+  m_text: 'Save
 
-    Hero'
+    &
+
+    Reset'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc029c2939601cf479c2ca77bcebd401, type: 2}
   m_sharedMaterial: {fileID: 1527388899310645580, guid: dc029c2939601cf479c2ca77bcebd401,
@@ -1139,7 +1141,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -24,7 +24,6 @@ namespace Infrastructure.Managers
         public (RivalModel,int) GetRandomRival()
         {
             var randomIndex = Random.Range(0, _rivals.Length);
-            Debug.Log($"RandomIndex {randomIndex}");
             return (_rivals[randomIndex],randomIndex);
         }
 

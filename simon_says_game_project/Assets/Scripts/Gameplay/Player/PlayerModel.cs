@@ -27,11 +27,6 @@ namespace Gameplay.Player
 
         #region Methods
 
-        private void Awake()
-        {
-            Debug.Log("Alive playermodel");
-        }
-
         public void ResetHealth()
         {
             PlayerData.Instance.Health = _maxHealth;
