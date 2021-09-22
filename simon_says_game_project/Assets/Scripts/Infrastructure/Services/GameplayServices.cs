@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO;
 using Gameplay.Core;
 using Infrastructure.Database;
@@ -37,11 +38,19 @@ namespace Infrastructure.Services
                 SfxManager.Instance.Initialize();
                 GameCore.Instance.Initialize();
             }
-
             if (SceneManager.GetActiveScene().name.Equals(PRE_INTRO_SCENE_NAME))
             {
-                SceneManager.LoadScene(INTRO_SCENE);
+                CoroutineService.RunCoroutine(WaitForEventBus());
             }
+        }
+
+        static IEnumerator WaitForEventBus()
+        {
+            while (_eventBus == null)
+            {
+                yield return null;
+            }
+            SceneManager.LoadScene(INTRO_SCENE);
         }
 
         #endregion
