@@ -24,6 +24,12 @@ namespace Gameplay.Player
 
         #endregion
 
+        #region Consts
+
+        private const string DEFAULT_PLAYER_NAME = "Player";
+
+        #endregion
+
         #region Fields
 
         #endregion
@@ -34,7 +40,7 @@ namespace Gameplay.Player
         {
             _health = Mathf.Min(_health + value, _maxHealth);
             var eParams = new OnHealthChange(_health);
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerAddHealth, eParams);
+            GameplayServices.EventBus?.Publish(EventTypes.OnPlayerAddHealth, eParams);
         }
 
         public void RemoveHealth(float value)
@@ -45,11 +51,11 @@ namespace Gameplay.Player
             GameplayServices.EventBus.Publish(EventTypes.OnPlayerTakeDamage, eParams);
             if (_health == 0)
             {
-                GameplayServices.EventBus.Publish(EventTypes.OnPlayerZeroHealth, emptyEventParams);
+                GameplayServices.EventBus?.Publish(EventTypes.OnPlayerZeroHealth, emptyEventParams);
             }
             else
             {
-                GameplayServices.EventBus.Publish(EventTypes.OnPlayerReady, emptyEventParams);
+                GameplayServices.EventBus?.Publish(EventTypes.OnPlayerReady, emptyEventParams);
             }
         }
 
@@ -59,15 +65,14 @@ namespace Gameplay.Player
             if (_lives == 0)
             {
                 var eParams = EventParams.Empty;
-                GameplayServices.EventBus.Publish(EventTypes.OnPlayerDeath, eParams);
+                GameplayServices.EventBus?.Publish(EventTypes.OnPlayerDeath, eParams);
             }
             else
             {
                 var eventParams = EventParams.Empty;
-                GameplayServices.EventBus.Publish(EventTypes.OnPlayerNewLife, eventParams);
+                GameplayServices.EventBus?.Publish(EventTypes.OnPlayerNewLife, eventParams);
             }
         }
-
         public void ResetLives()
         {
             _lives = _maxLives;
@@ -78,7 +83,7 @@ namespace Gameplay.Player
             _score = Mathf.Min(_score + value, _maxScore);
             SetBestScore();
             var eParams = new OnPlayerScoreChange(_score);
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
+            GameplayServices.EventBus?.Publish(EventTypes.OnPlayerScoreChange, eParams);
         }
 
         public void ResetScore()
@@ -86,7 +91,7 @@ namespace Gameplay.Player
             SetBestScore();
             _score = 0;
             var eParams = new OnPlayerScoreChange(_score);
-            GameplayServices.EventBus.Publish(EventTypes.OnPlayerScoreChange, eParams);
+            GameplayServices.EventBus?.Publish(EventTypes.OnPlayerScoreChange, eParams);
         }
 
         private void SetBestScore()
@@ -102,10 +107,15 @@ namespace Gameplay.Player
             _lastRivalIndex = value;
         }
 
+        public void SetName(string value)
+        {
+            _name = value;
+        }
         #endregion
 
         #region Properties
 
+        public string DefaultPlayerName => DEFAULT_PLAYER_NAME;
         public Texture2D Image => _image;
         public float Health => _health;
         public int MaxLives => _maxLives;

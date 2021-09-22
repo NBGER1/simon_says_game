@@ -1216,6 +1216,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1164532720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 112799420509343547, guid: d050a68ac129f1c4d929cf6809562388,
+    type: 3}
+  m_PrefabInstance: {fileID: 112799419948968499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cf4fb005b13544ebb7d663ac2104e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200986544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,6 +2128,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 112799420509343547, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: _playerNamesJson
+      value: 
+      objectReference: {fileID: 4900000, guid: 0b7cd5127d8ece6408af126ac951caf8, type: 3}
+    - target: {fileID: 112799420636873950, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 112799420765069189, guid: d050a68ac129f1c4d929cf6809562388,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2176,6 +2198,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 327714778585965568, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1164532720}
+    - target: {fileID: 327714778585965568, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetHero
+      objectReference: {fileID: 0}
+    - target: {fileID: 327714778585965568, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 826036720364592890, guid: d050a68ac129f1c4d929cf6809562388,
         type: 3}
       propertyPath: m_text
@@ -2184,6 +2221,26 @@ PrefabInstance:
     - target: {fileID: 1590863473945743702, guid: d050a68ac129f1c4d929cf6809562388,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132052871019635934, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132052871019635934, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_margin.x
+      value: -108.14047
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132052871019635934, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -100.792206
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132052871019635934, guid: d050a68ac129f1c4d929cf6809562388,
+        type: 3}
+      propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

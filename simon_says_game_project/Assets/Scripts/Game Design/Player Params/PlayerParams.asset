@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 100
   _maxLives: 3
-  _lives: 2
+  _lives: 1
   _maxScore: 1000
   _image: {fileID: 2800000, guid: d61a46ee68acc4f42a1abe848f259834, type: 3}
-  _name: Player
-  _health: 0
-  _lastRivalIndex: 2
-  _score: 0
-  _bestScore: 5
+  _name: Nidhoggr
+  _health: 100
+  _lastRivalIndex: 0
+  _score: 55
+  _bestScore: 35
