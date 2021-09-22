@@ -46,7 +46,7 @@ namespace Gameplay.Rivals
 
         public void PrepareForNewRound()
         {
-            ResetHealth();
+            // ResetHealth(); --> This is too difficult for now
         }
         public void ResetHealth()
         {
