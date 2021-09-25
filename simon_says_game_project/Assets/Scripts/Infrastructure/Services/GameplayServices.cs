@@ -33,7 +33,6 @@ namespace Infrastructure.Services
             _coroutineService = csgo.AddComponent<CoroutineService>();
             if (SceneManager.GetActiveScene().name.Equals(GAME_SCENE_NAME))
             {
-                SfxManager.Instance.Initialize();
                 GameCore.Instance.Initialize();
             }
 
@@ -41,6 +40,7 @@ namespace Infrastructure.Services
             {
                 CoroutineService.RunCoroutine(WaitForEventBus());
             }
+
         }
 
         static IEnumerator WaitForEventBus()

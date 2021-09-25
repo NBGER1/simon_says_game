@@ -247,6 +247,8 @@ namespace Gameplay.Core
 
         public void ReturnToMainMenu()
         {
+            var eParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             SceneManager.MoveToMainMenuScene();
         }
 

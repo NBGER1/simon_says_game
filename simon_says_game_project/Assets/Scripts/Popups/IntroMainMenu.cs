@@ -27,8 +27,6 @@ namespace Popups
 
         #region Consts
 
-        const string CONTINUE_PLAY_BUTTON_TEXT = "CONTINUE";
-        const string NEW_PLAY_BUTTON_TEXT = "PLAY";
         private const string DEFAULT_PLAYER_NAME = "Syymon";
 
         #endregion
@@ -56,15 +54,6 @@ namespace Popups
 
         private void OnDatabaseLoad(EventParams obj)
         {
-            if (_playerModel.LastRivalIndex > -1)
-            {
-                _playButtonText.text = CONTINUE_PLAY_BUTTON_TEXT;
-            }
-            else
-            {
-                _playButtonText.text = NEW_PLAY_BUTTON_TEXT;
-            }
-
             _bestScoreValueText.text = _playerModel.BestScore.ToString();
 
             if (!_playerModel.Name.Equals(DEFAULT_PLAYER_NAME))
@@ -85,20 +74,25 @@ namespace Popups
         }
 
         public void Play()
+
         {
-            Debug.Log("PLAY");
+            var eParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             SceneManager.MoveToGameScene();
         }
 
         public void Exit()
         {
-            Debug.Log("EXIT");
+            var eParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             SceneManager.ExitApp();
         }
 
 
         public void ResetHero()
         {
+            var eParams = EventParams.Empty;
+            GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             _playerModel.ResetPlayer();
             _playerModel.SetName(DEFAULT_PLAYER_NAME);
             ShowPlayerInfo();

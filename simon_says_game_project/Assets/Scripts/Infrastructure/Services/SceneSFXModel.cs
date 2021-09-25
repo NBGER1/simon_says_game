@@ -11,6 +11,7 @@ namespace Infrastructure.Services
         [SerializeField] private AudioClip _roundLoseClip;
         [SerializeField] private AudioClip _gameOverWinClip;
         [SerializeField] private AudioClip _onTakenDamageClip;
+        [SerializeField] private AudioClip _onUIButtonClick;
 
         #endregion
 
@@ -20,7 +21,7 @@ namespace Infrastructure.Services
         public AudioClip RoundLoseClip => _roundLoseClip;
         public AudioClip GameOverWinClip => _gameOverWinClip;
         public AudioClip OnTakenDamageClip => _onTakenDamageClip;
-
+        public AudioClip OnUIButtonclick => _onUIButtonClick;
         #endregion
     }
 }

@@ -2,6 +2,7 @@ namespace Infrastructure.Events
 {
     public enum EventTypes
     {
+        //# Gameplay
         OnRivalTakeDamage,
         OnPlayerTakeDamage,
         OnPlayerAddHealth,
@@ -22,6 +23,11 @@ namespace Infrastructure.Events
         OnRivalReady,
         OnPlayerNewLife,
         
+        //# Infrastructure
         OnDatabaseLoad,
+        
+        //# UI
+        OnUIButtonClick
+
     }
 }
