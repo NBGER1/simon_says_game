@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ae680cd2aa47769e41f7b40062d4c1, type: 3}
   m_Name: PopupElements
   m_EditorClassIdentifier: 
-  _losePopup: {fileID: 6558164575298238645, guid: 664b80d2bcdf0734ba3c812d5a765aa0,
+  _losePopup: {fileID: 5123314635358717695, guid: 1a134c5c6e47e614fb3383acb8a15e09,
     type: 3}
-  _winPopup: {fileID: 7550659055811586430, guid: c887275819215574c94589fd6fe5e485,
+  _winPopup: {fileID: 7671271765279075067, guid: aea3ac5f004aec74194543c6f390d5fc,
     type: 3}
+  _scoreboardEntryPrefab: {fileID: 0}

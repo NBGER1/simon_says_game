@@ -1,7 +1,5 @@
 using System.Collections;
-using System.IO;
 using Gameplay.Core;
-using Infrastructure.Database;
 using Infrastructure.Managers;
 using Infrastructure.Services.Coroutines;
 using UnityEngine;
@@ -38,6 +36,7 @@ namespace Infrastructure.Services
                 SfxManager.Instance.Initialize();
                 GameCore.Instance.Initialize();
             }
+
             if (SceneManager.GetActiveScene().name.Equals(PRE_INTRO_SCENE_NAME))
             {
                 CoroutineService.RunCoroutine(WaitForEventBus());
@@ -50,6 +49,7 @@ namespace Infrastructure.Services
             {
                 yield return null;
             }
+
             SceneManager.LoadScene(INTRO_SCENE);
         }
 

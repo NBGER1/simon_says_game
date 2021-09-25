@@ -107,7 +107,9 @@ namespace Gameplay.Core
 
         private void StartNewRound(EventParams obj)
         {
-            StartNewRound();
+            GameplayServices.CoroutineService
+                .WaitFor(1)
+                .OnEnd(StartNewRound);
         }
 
         private void StartNewRound()
@@ -140,6 +142,13 @@ namespace Gameplay.Core
         private void OnRivalDefeat(EventParams obj)
         {
             _playerModel.AddScore(_rivalParams.Score);
+            Instantiate(_popupElements.WinPopup, _canvas.transform);
+            // SetNewRival();
+            // StartNewRound();
+        }
+
+        public void ContinueToNewRound()
+        {
             SetNewRival();
             StartNewRound();
         }
