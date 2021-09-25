@@ -22,7 +22,7 @@ namespace Popups
 
         private void OnEnable()
         {
-            _scoreValue.text = PlayerData.Instance.Score.ToString();
+            _scoreValue.text = GameCore.Instance.LastScoreGained.ToString();
         }
 
         public void Continue()

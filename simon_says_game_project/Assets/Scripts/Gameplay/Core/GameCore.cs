@@ -32,6 +32,7 @@ namespace Gameplay.Core
 
         private RivalModel _rivalParams;
         private Queue<int> _lastGameSequence = new Queue<int>();
+        private int _lastScoreGained = 0;
 
         #endregion
 
@@ -141,7 +142,8 @@ namespace Gameplay.Core
 
         private void OnRivalDefeat(EventParams obj)
         {
-            _playerModel.AddScore(_rivalParams.Score);
+            _lastScoreGained = _rivalParams.Score;
+            _playerModel.AddScore(LastScoreGained);
             Instantiate(_popupElements.WinPopup, _canvas.transform);
             // SetNewRival();
             // StartNewRound();
@@ -266,8 +268,7 @@ namespace Gameplay.Core
         #region Properties
 
         public GameModel GameModel => _gameModel;
-        public PlayerModel PlayerModel => _playerModel;
-        public GameObject Canvas => _canvas;
+        public int LastScoreGained => _lastScoreGained;
 
         #endregion
     }
