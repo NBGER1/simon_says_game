@@ -13,6 +13,7 @@ namespace Infrastructure.Services
 
         private static EventBus _eventBus;
         private static ICoroutineService _coroutineService;
+        private static RivalManager _rivalManager;
 
         #endregion
 
@@ -41,6 +42,15 @@ namespace Infrastructure.Services
                 CoroutineService.RunCoroutine(WaitForEventBus());
             }
 
+            if (SceneManager.GetActiveScene().name.Equals(INTRO_SCENE))
+            {
+                if (_rivalManager == null)
+                {
+                    var rm = new GameObject("RivalManager");
+                    _rivalManager = rm.AddComponent<RivalManager>();
+                    _rivalManager.Initialize();
+                }
+            }
         }
 
         static IEnumerator WaitForEventBus()
@@ -59,6 +69,8 @@ namespace Infrastructure.Services
 
         public static EventBus EventBus => _eventBus;
         public static ICoroutineService CoroutineService => _coroutineService;
+
+        public static RivalManager RivalManager => _rivalManager;
 
         #endregion
     }

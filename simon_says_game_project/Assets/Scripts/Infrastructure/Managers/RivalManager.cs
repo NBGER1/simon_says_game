@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Infrastructure.Managers
 {
-    public class RivalManager : Singleton<RivalManager>
+    public class RivalManager :MonoBehaviour
     {
         #region Fields
 
@@ -18,16 +18,15 @@ namespace Infrastructure.Managers
 
         #region Methods
 
-        private void Start()
+        private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            if (_rivals?.Length >= 1) return;
-            _rivals = Resources.LoadAll("RivalModels", typeof(RivalModel)).Cast<RivalModel>().ToArray();
         }
 
-        protected override RivalManager GetInstance()
+        public void Initialize()
         {
-            return this;
+            if (_rivals?.Length >= 1) return;
+            _rivals = Resources.LoadAll("RivalModels", typeof(RivalModel)).Cast<RivalModel>().ToArray();
         }
 
         public (RivalModel, int) GetRandomRival()
@@ -40,6 +39,7 @@ namespace Infrastructure.Managers
 
         public RivalModel GetRivalByIndex(int index)
         {
+
             if (index < _rivals.Length)
             {
                 return _rivals[index];

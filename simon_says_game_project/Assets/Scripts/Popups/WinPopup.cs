@@ -1,9 +1,5 @@
-using System;
 using Gameplay.Core;
-using Gameplay.Scoreboard;
-using Infrastructure.Database;
 using Infrastructure.Events;
-using Infrastructure.Managers;
 using Infrastructure.Services;
 using TMPro;
 using UnityEngine;

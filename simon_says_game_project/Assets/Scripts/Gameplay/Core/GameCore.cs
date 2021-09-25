@@ -60,14 +60,14 @@ namespace Gameplay.Core
         private void SetNewRival()
         {
             int rivalIndex;
-            (_rivalParams, rivalIndex) = RivalManager.Instance.GetRandomRival();
+            (_rivalParams, rivalIndex) = GameplayServices.RivalManager.GetRandomRival();
             _playerModel.SetRivalIndex(rivalIndex);
             _rivalView.Initialize(_rivalParams);
         }
 
         private void LoadRival()
         {
-            _rivalParams = RivalManager.Instance.GetRivalByIndex(_playerModel.LastRivalIndex);
+            _rivalParams =GameplayServices.RivalManager.GetRivalByIndex(_playerModel.LastRivalIndex);
             _rivalView.Initialize(_rivalParams);
         }
 

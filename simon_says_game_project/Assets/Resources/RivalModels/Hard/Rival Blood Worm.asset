@@ -18,7 +18,7 @@ MonoBehaviour:
   _selfDamage: 10
   _score: 25
   _minGameSequenceLength: 5
-  _maxGameSequenceLength: 7
+  _maxGameSequenceLength: 6
   _damage: 25
   _isLegendary: 0
   _introAudio: {fileID: 8300000, guid: f4b6476b14bdc1d4b8b6b98112797fb8, type: 3}

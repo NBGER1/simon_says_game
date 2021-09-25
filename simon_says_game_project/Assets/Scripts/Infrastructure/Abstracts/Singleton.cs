@@ -12,6 +12,11 @@ namespace Infrastructure.Abstracts
 
         private void Awake()
         {
+            var go = FindObjectsOfType<Singleton<T>>();
+            if (go.Length > 1)
+            {
+                Destroy(go[1]);
+            }
             _instance = GetInstance();
         }
 
