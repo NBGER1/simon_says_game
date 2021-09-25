@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f186b84824f55a8667044b428eadb, type: 3}
+  m_Name: Rival Skeleton Minion
+  m_EditorClassIdentifier: 
+  _image: {fileID: 2800000, guid: 874746cb8bcbc324b9576004ccaaac42, type: 3}
+  _name: Skeleton Minion
+  _health: 100
+  _selfDamage: 40
+  _score: 12
+  _minGameSequenceLength: 4
+  _maxGameSequenceLength: 6
+  _damage: 25
+  _isLegendary: 0
+  _introAudio: {fileID: 8300000, guid: 485b3aa49a501c749b3f73f117642437, type: 3}
+  _attackAudio: {fileID: 0}
+  _defeatAudio: {fileID: 0}
