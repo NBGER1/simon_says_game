@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Gameplay.Core;
 using Gameplay.Events;
@@ -6,6 +7,7 @@ using Infrastructure.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Rivals
 {
@@ -34,6 +36,7 @@ namespace Gameplay.Rivals
 
         public void Initialize(RivalModel rivalModel)
         {
+            SubscribeToEvents();
             _rivalModel = rivalModel;
             _image.texture = _rivalModel.Image;
             _name.text = _rivalModel.Name;
@@ -41,7 +44,6 @@ namespace Gameplay.Rivals
             _legendaryIndicator.SetActive(_rivalModel.IsLegendary);
             var eParams = new OnHealthChange(_health);
             GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
-            SubscribeToEvents();
             PlayIntroAudio();
         }
 
@@ -49,14 +51,6 @@ namespace Gameplay.Rivals
         {
             // ResetHealth(); --> This is too difficult for now
         }
-
-        public void ResetHealth()
-        {
-            _health = _rivalModel.Health;
-            var eParams = new OnHealthChange(_health);
-            GameplayServices.EventBus.Publish(EventTypes.OnRivalAddHealth, eParams);
-        }
-
 
         private void SubscribeToEvents()
         {
@@ -74,10 +68,13 @@ namespace Gameplay.Rivals
             TakeDamageEffect();
             if (_health == 0)
             {
+                UnsubscribeEvents();
                 GameplayServices.EventBus.Publish(EventTypes.OnRivalDefeat, emptyEventParams);
             }
             else
             {
+                Debug.Log($"Publishing OnRivalReady");
+
                 GameplayServices.EventBus.Publish(EventTypes.OnRivalReady, emptyEventParams);
             }
         }
@@ -140,11 +137,16 @@ namespace Gameplay.Rivals
             _audioSource.PlayOneShot(_rivalModel.DefeatAudio);
         }
 
-        private void OnDestroy()
+        private void UnsubscribeEvents()
         {
             GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerTurn, OnPlayerTurn);
             GameplayServices.EventBus.Unsubscribe(EventTypes.OnRivalTurn, OnRivalTurn);
             GameplayServices.EventBus.Unsubscribe(EventTypes.OnPlayerSequenceSuccess, TakeSelfDamage);
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();
         }
 
         #endregion

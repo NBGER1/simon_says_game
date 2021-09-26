@@ -51,7 +51,7 @@ namespace Gameplay.Core
             GameplayServices.EventBus.Subscribe(EventTypes.OnRivalReady, StartNewRound);
             GameplayServices.EventBus.Subscribe(EventTypes.OnPlayerNewLife, ResetStage);
 
-
+            Debug.Log($"Calling StartNewRound from Initialize");
             GameplayServices.CoroutineService
                 .WaitFor(1.5f)
                 .OnEnd(StartNewRound);
@@ -108,6 +108,7 @@ namespace Gameplay.Core
 
         private void StartNewRound(EventParams obj)
         {
+            Debug.Log($"Calling StartNewRound from Event Rival/Player Ready");
             GameplayServices.CoroutineService
                 .WaitFor(1)
                 .OnEnd(StartNewRound);
@@ -151,6 +152,7 @@ namespace Gameplay.Core
 
         public void ContinueToNewRound()
         {
+            Debug.Log($"Calling StartNewRound from ContinueToNewRound");
             SetNewRival();
             StartNewRound();
         }
@@ -166,6 +168,7 @@ namespace Gameplay.Core
             _rivalView.PrepareForNewRound();
             _playerView.PrepareForNewRound();
 
+            Debug.Log($"Calling StartNewRound from ResetStage");
             GameplayServices.CoroutineService
                 .WaitFor(0.5f)
                 .OnEnd(StartNewRound);

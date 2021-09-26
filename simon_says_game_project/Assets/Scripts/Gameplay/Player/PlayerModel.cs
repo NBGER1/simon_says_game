@@ -48,6 +48,7 @@ namespace Gameplay.Player
             }
             else
             {
+                Debug.Log($"Publishing OnPlayerReady");
                 GameplayServices.EventBus?.Publish(EventTypes.OnPlayerReady, emptyEventParams);
             }
         }
