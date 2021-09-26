@@ -22,6 +22,7 @@ namespace Popups
         [SerializeField] private TextMeshProUGUI _playerNameText;
         [SerializeField] private RawImage _playerImage;
         [SerializeField] private GameObject _musicBoxPrefab;
+        [SerializeField] private GameObject _gameInfoImage;
 
         #endregion
 
@@ -76,6 +77,7 @@ namespace Popups
         public void Play()
 
         {
+            if (_gameInfoImage.activeInHierarchy) return;
             var eParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             SceneManager.MoveToGameScene();
@@ -83,6 +85,7 @@ namespace Popups
 
         public void Exit()
         {
+            if (_gameInfoImage.activeInHierarchy) return;
             var eParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             SceneManager.ExitApp();
@@ -91,11 +94,17 @@ namespace Popups
 
         public void ResetHero()
         {
+            if (_gameInfoImage.activeInHierarchy) return;
             var eParams = EventParams.Empty;
             GameplayServices.EventBus.Publish(EventTypes.OnUIButtonClick, eParams);
             _playerModel.ResetPlayer();
             _playerModel.SetName(DEFAULT_PLAYER_NAME);
             ShowPlayerInfo();
+        }
+
+        public void ToggleGameInfo()
+        {
+            _gameInfoImage.SetActive(!_gameInfoImage.activeInHierarchy);
         }
 
         #endregion
