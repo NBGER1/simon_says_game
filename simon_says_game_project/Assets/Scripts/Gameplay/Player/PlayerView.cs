@@ -1,5 +1,6 @@
 using System;
 using Gameplay.Events;
+using Infrastructure.Database;
 using Infrastructure.Events;
 using Infrastructure.Services;
 using TMPro;
@@ -107,8 +108,8 @@ namespace Gameplay.Player
 
         private void OnPlayerScoreChange(EventParams obj)
         {
-            var eParams = obj as OnPlayerScoreChange;
-            _score.text = eParams.Score.ToString();
+            // var eParams = obj as OnPlayerScoreChange;
+            _score.text = PlayerData.Instance.Score.ToString();
         }
 
         private void OnDestroy()
